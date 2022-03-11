@@ -22,7 +22,13 @@ def contar_liberdades(tab):
                         if tab[linha - 1][coluna] == BOLA_PRETA:
                             count += 1
                         else:
-                            tab[linha - 1][coluna] = "x"
+                            if tab[linha - 1][coluna] == BOLA_BRANCA:
+                                count += 1
+                            else:
+                                if tab[linha - 1][coluna] == BOLA_PRETA:
+                                    count -= 1
+                                else:
+                                    tab[linha - 1][coluna] = "x"
 
                     if linha == len(tab) - 1:
                         count -= 1
@@ -34,7 +40,10 @@ def contar_liberdades(tab):
                             if tab[linha + 1][coluna] == BOLA_PRETA:
                                 count += 1
                             else:
-                                tab[linha + 1][coluna] = "x"
+                                if tab[linha + 1][coluna] == BOLA_BRANCA:
+                                    count -= 1
+                                else:
+                                    tab[linha + 1][coluna] = "x"
 
                     if tab[linha][coluna - 1] == BOLA_BRANCA or coluna == 1:
                         count -= 1
@@ -43,7 +52,10 @@ def contar_liberdades(tab):
                         if tab[linha][coluna - 1] == BOLA_PRETA:
                             count += 1
                         else:
-                            tab[linha][coluna - 1] = "x"
+                            if tab[linha][coluna - 1] == BOLA_BRANCA:
+                                count -= 1
+                            else:
+                                tab[linha][coluna - 1] = "x"
 
                     if tab[linha][coluna + 1] == BOLA_BRANCA or coluna == len(tab):
                         count -= 1
@@ -52,6 +64,8 @@ def contar_liberdades(tab):
                         if tab[linha][coluna + 1] == BOLA_PRETA:
                             count += 1
                         else:
+                            if tab[linha][coluna + 1] == BOLA_BRANCA:
+                                count -= 1
                             tab[linha][coluna + 1] = "x"
 
                 else:
