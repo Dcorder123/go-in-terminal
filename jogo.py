@@ -1,23 +1,28 @@
 from constantes import *
 
 # contador
-liberdades = []
-bloco = []
+liberdades_pretas = []
+liberdades_brancas = []
+blocop = []
+blocob = []
 
-#contar liberdades e salvar coordenadas das peças em grupo
-def contar_liberdades(tab):
+
+# contar liberdades e salvar coordenadas das peças em grupo
+def contar_liberdades(tab, TAM):
+
     count = 8
     count2 = 8
     for linha in range(len(tab)):
         for coluna in range(len(tab)+1):
-
+            quadrado = [linha, coluna]
             if tab[linha][coluna] == BOLA_PRETA or tab[linha][coluna] == BOLA_BRANCA:
 
                 if tab[linha][coluna] == BOLA_PRETA:
+                    if quadrado not in blocop:
+                        blocop.append(quadrado)
 
                     if tab[linha - 1][coluna] == BOLA_BRANCA or linha == 0:
                         count -= 1
-
                     else:
                         if tab[linha - 1][coluna] == BOLA_PRETA:
                             count += 1
@@ -28,14 +33,16 @@ def contar_liberdades(tab):
                                 if tab[linha - 1][coluna] == BOLA_PRETA:
                                     count -= 1
                                 else:
-                                    tab[linha - 1][coluna] = "x"
+                                    tab[linha - 1][coluna] = " x"
+                                    baixo = [linha - 1, coluna]
+                                    if baixo not in liberdades_pretas:
+                                        liberdades_pretas.append(baixo)
 
                     if linha == len(tab) - 1:
                         count -= 1
                     else:
                         if tab[linha + 1][coluna] == BOLA_PRETA or linha == len(tab) - 1:
                             count -= 1
-
                         else:
                             if tab[linha + 1][coluna] == BOLA_PRETA:
                                 count += 1
@@ -43,11 +50,13 @@ def contar_liberdades(tab):
                                 if tab[linha + 1][coluna] == BOLA_BRANCA:
                                     count -= 1
                                 else:
-                                    tab[linha + 1][coluna] = "x"
+                                    tab[linha + 1][coluna] = " x"
+                                    cima = [linha + 1, coluna]
+                                    if cima not in liberdades_pretas:
+                                        liberdades_pretas.append(cima)
 
                     if tab[linha][coluna - 1] == BOLA_BRANCA or coluna == 1:
                         count -= 1
-
                     else:
                         if tab[linha][coluna - 1] == BOLA_PRETA:
                             count += 1
@@ -55,59 +64,86 @@ def contar_liberdades(tab):
                             if tab[linha][coluna - 1] == BOLA_BRANCA:
                                 count -= 1
                             else:
-                                tab[linha][coluna - 1] = "x"
-
+                                tab[linha][coluna - 1] = " x"
+                                esquerdo = [linha, coluna - 1]
+                                if esquerdo not in liberdades_pretas:
+                                    liberdades_pretas.append(esquerdo)
                     if tab[linha][coluna + 1] == BOLA_BRANCA or coluna == len(tab):
                         count -= 1
-
                     else:
                         if tab[linha][coluna + 1] == BOLA_PRETA:
                             count += 1
                         else:
                             if tab[linha][coluna + 1] == BOLA_BRANCA:
                                 count -= 1
-                            tab[linha][coluna + 1] = "x"
-
+                            else:
+                                tab[linha][coluna + 1] = " x"
+                                direita = [linha, coluna + 1]
+                                if direita not in liberdades_pretas:
+                                    liberdades_pretas.append(direita)
                 else:
+                    if quadrado not in blocob:
+                        blocob.append(quadrado)
+
+
                     if tab[linha - 1][coluna] == BOLA_PRETA or linha == 0:
                         count2 -= 1
-
                     else:
                         if tab[linha - 1][coluna] == BOLA_BRANCA:
                             count2 += 1
                         else:
-                            tab[linha - 1][coluna] = "Y"
+                            if tab[linha - 1][coluna] == BOLA_PRETA:
+                                count2 += 1
+                            else:
+                                tab[linha - 1][coluna] = " Y"
+                                baixo = [linha - 1, coluna]
+                                if baixo not in liberdades_pretas:
+                                    liberdades_brancas.append(baixo)
 
                     if linha == len(tab)-1:
-                        count2 -=1
+                        count2 -= 1
                     else:
                         if tab[linha + 1][coluna] == BOLA_PRETA or linha == len(tab) - 1:
                             count2 -= 1
-
                         else:
                             if tab[linha + 1][coluna] == BOLA_BRANCA:
                                 count2 += 1
                             else:
-                                tab[linha + 1][coluna] = "Y"
-
+                                if tab[linha + 1][coluna] == BOLA_PRETA:
+                                    count2 += 1
+                                else:
+                                    tab[linha + 1][coluna] = " Y"
+                                    cima = [linha + 1, coluna]
+                                    if cima not in liberdades_pretas:
+                                        liberdades_brancas.append(cima)
 
                     if tab[linha][coluna - 1] == BOLA_PRETA or coluna == 1:
                         count2 -= 1
-
                     else:
                         if tab[linha][coluna - 1] == BOLA_BRANCA:
                             count2 += 1
                         else:
-                            tab[linha][coluna - 1] = "Y"
+                            if tab[linha][coluna - 1] == BOLA_PRETA:
+                                count2 += 1
+                            else:
+                                tab[linha][coluna - 1] = " Y"
+                                esquerdo = [linha, coluna - 1]
+                                if esquerdo not in liberdades_pretas:
+                                    liberdades_brancas.append(esquerdo)
 
                     if tab[linha][coluna + 1] == BOLA_PRETA or coluna == len(tab):
                         count2 -= 1
-
                     else:
                         if tab[linha][coluna + 1] == BOLA_BRANCA:
                             count2 += 1
                         else:
-                            tab[linha][coluna + 1] = "Y"
+                            if tab[linha][coluna + 1] == BOLA_PRETA:
+                                count2 += 1
+                            else:
+                                tab[linha][coluna + 1] = " Y"
+                                direita = [linha, coluna + 1]
+                                if direita not in liberdades_pretas:
+                                    liberdades_brancas.append(direita)
 
 
 def controi_tabuleiro(TAM):

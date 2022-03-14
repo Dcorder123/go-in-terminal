@@ -1,5 +1,6 @@
 BOLA_PRETA = " ◯"
 BOLA_BRANCA = " ●"
+VAZIO = "  ."
 JOG1 = 1
 JOG2 = 2
 liberdade = 8
