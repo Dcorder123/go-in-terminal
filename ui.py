@@ -67,7 +67,7 @@ while True:
     movimentando_tab(linha1 - 1, coluna1, e, JOG1, PECA_BRANCA, PECA_PRETA)
     contar_liberdades(e, TAM)
     capturando_innimigo(e)
-    verificando_se_he_grupo(e, linha1 - 1, coluna1)
+    verificando_se_he_grupo(e, linha1 - 1, coluna1, TAM)
     imprime_matriz(e, TAM)
 
     print("Vez de jogador 2!")
@@ -75,7 +75,7 @@ while True:
     movimentando_tab(linha2 - 1, coluna2, e, JOG2, PECA_BRANCA, PECA_PRETA)
     contar_liberdades(e, TAM)
     capturando_innimigo(e)
-    verificando_se_he_grupo(e, linha2 - 1, coluna2)
+    verificando_se_he_grupo(e, linha2 - 1, coluna2, TAM)
     imprime_matriz(e, TAM)
     print(blocop)
     print(blocob)
