@@ -257,7 +257,7 @@ def coordenadas(l, c, direcao):
         return (l - 1 , c)
     if direcao == "baixo":
         return (l + 1, c)
-    if direcao == "esqueda":
+    if direcao == "esquerda":
         return (l, c - 1)
     if direcao == "direita":
         return  ( l, c + 1)
@@ -273,9 +273,9 @@ def verificando_se_he_grupo(tab, linha, coluna, tam):
     else:
         baixo = tab[linha + 1][coluna]
     if coluna < 2:
-        esqueda = VAZIO
+        esquerda = VAZIO
     else:
-        esqueda = tab[linha][coluna - 1]
+        esquerda = tab[linha][coluna - 1]
     if coluna == tam - 1:
         direita = VAZIO
     else:
@@ -284,19 +284,89 @@ def verificando_se_he_grupo(tab, linha, coluna, tam):
     if tab[linha][coluna] == PECA_PRETA:
         if (cima in [VAZIO, " x", " Y", " |"])\
                 and (baixo in [VAZIO, " x", " Y",  " |"])\
-                and (esqueda in [VAZIO, " x", " Y", " |"])\
+                and (esquerda in [VAZIO, " x", " Y", " |"])\
                 and (direita in [VAZIO, " x", " Y", " |"]):
             grupos_P.append([])
             grupos_P[-1].append((linha, coluna))
-        if coordenadas(l, c, "cima") == PECA_PRETA:
-            PECA_PRETA in grupos_B
-
+        
+        ########
+        cima_peca = coordenadas(linha, coluna, "cima") #Posição da jogada
+        baixo_peca = coordenadas(linha, coluna, "baixo")
+        esquerda_peca = coordenadas(linha, coluna, "esquerda")
+        direita_peca = coordenadas(linha, coluna, "direita")
+        
+    
+        primeiro = -1 # Index do primeiro item da lista que faz grupo com a peça adicionada
+        ja_adicionou = False # Verifica se a peça já foi adicionada a outra lista
+        index = 0 # Index na lista de grupos
+        
+        while index < len(grupos_P):
+            
+            # Verifica se existe algum vizinho
+            cima_peca_veri = cima_peca in grupos_P[index]
+            baixo_peca_veri = baixo_peca in grupos_P[index]
+            esquerda_peca_veri = esquerda_peca in grupos_P[index]
+            direita_peca_veri = direita_peca in grupos_P[index]
+            
+            # Caso tenha vizinho
+            if cima_peca_veri or baixo_peca_veri or esquerda_peca_veri or direita_peca_veri:
+                if not ja_adicionou: # Caso o item ainda não sido adicinado
+                    grupos_P[index].append((linha, coluna)) # Adiciono ao grupo
+                    primeiro = index # Seta o index do primeiro grupo
+                    ja_adicionou = True # Seta o já adicionado
+                    
+                else: # Caso o item já tenha sido adicionado
+                    for item in grupos_P[index]: # Pega todos os peças da lista atual e adiciona a primeira lista
+                        grupos_P[primeiro].append((item[0], item[1]))
+                    del grupos_P[index] # Deleta a lista atual
+                    index -= 1
+                    
+            index += 1 # Atualiza o valor do index
+                           
+        #######
 
 
     elif tab[linha][coluna] == PECA_BRANCA:
         if (cima in [VAZIO, " x", " Y", " |"])\
                 and (baixo in [VAZIO, " x", " Y", " |"])\
-                and (esqueda in [VAZIO, " x", " Y", " |"])\
+                and (esquerda in [VAZIO, " x", " Y", " |"])\
                 and (direita in [VAZIO, " x", " Y", " |"]):
             grupos_B.append([])
             grupos_B[-1].append((linha, coluna))
+            
+        cima_peca = coordenadas(linha, coluna, "cima") #Posição da jogada
+        baixo_peca = coordenadas(linha, coluna, "baixo")
+        esquerda_peca = coordenadas(linha, coluna, "esquerda")
+        direita_peca = coordenadas(linha, coluna, "direita")
+        
+    
+        primeiro = -1 # Index do primeiro item da lista que faz grupo com a peça adicionada
+        ja_adicionou = False # Verifica se a peça já foi adicionada a outra lista
+        index = 0 # Index na lista de grupos
+        
+        while index < len(grupos_B):
+            
+            # Verifica se existe algum vizinho
+            cima_peca_veri = cima_peca in grupos_B[index]
+            baixo_peca_veri = baixo_peca in grupos_B[index]
+            esquerda_peca_veri = esquerda_peca in grupos_B[index]
+            direita_peca_veri = direita_peca in grupos_B[index]
+            
+            # Caso tenha vizinho
+            if cima_peca_veri or baixo_peca_veri or esquerda_peca_veri or direita_peca_veri:
+                if not ja_adicionou: # Caso o item ainda não sido adicinado
+                    grupos_B[index].append((linha, coluna)) # Adiciono ao grupo
+                    primeiro = index # Seta o index do primeiro grupo
+                    ja_adicionou = True # Seta o já adicionado
+                    
+                else: # Caso o item já tenha sido adicionado
+                    for item in grupos_B[index]: # Pega todos os peças da lista atual e adiciona a primeira lista
+                        grupos_B[primeiro].append((item[0], item[1]))
+                    del grupos_B[index] # Deleta a lista atual
+                    index -= 1
+                    
+            index += 1 # Atualiza o valor do index
+                           
+        #######
+            
+            
