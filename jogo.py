@@ -5,7 +5,9 @@ liberdades_pretas = []
 liberdades_brancas = []
 blocop = []
 blocob = []
-grupos = []
+grupos_P = []
+grupos_B = []
+
 
 # contar liberdades e salvar coordenadas das peças em grupo
 def contar_liberdades(tab, TAM):
@@ -16,22 +18,22 @@ def contar_liberdades(tab, TAM):
         for coluna in range(len(tab)+1):
             quadrado = (linha, coluna)
 
-            if tab[linha][coluna] == BOLA_PRETA or tab[linha][coluna] == BOLA_BRANCA:
+            if tab[linha][coluna] == PECA_PRETA or tab[linha][coluna] == PECA_BRANCA:
 
-                if tab[linha][coluna] == BOLA_PRETA:
+                if tab[linha][coluna] == PECA_PRETA:
                     if quadrado not in blocop:
                         blocop.append(quadrado)
 
-                    if tab[linha - 1][coluna] == BOLA_BRANCA or linha == 0:
+                    if tab[linha - 1][coluna] == PECA_BRANCA or linha == 0:
                         count -= 1
                     else:
-                        if tab[linha - 1][coluna] == BOLA_PRETA:
+                        if tab[linha - 1][coluna] == PECA_PRETA:
                             count += 1
                         else:
-                            if tab[linha - 1][coluna] == BOLA_BRANCA:
+                            if tab[linha - 1][coluna] == PECA_BRANCA:
                                 count += 1
                             else:
-                                if tab[linha - 1][coluna] == BOLA_PRETA:
+                                if tab[linha - 1][coluna] == PECA_PRETA:
                                     count -= 1
                                 else:
                                     tab[linha - 1][coluna] = " x"
@@ -42,13 +44,13 @@ def contar_liberdades(tab, TAM):
                     if linha == len(tab) - 1:
                         count -= 1
                     else:
-                        if tab[linha + 1][coluna] == BOLA_PRETA or linha == len(tab) - 1:
+                        if tab[linha + 1][coluna] == PECA_PRETA or linha == len(tab) - 1:
                             count -= 1
                         else:
-                            if tab[linha + 1][coluna] == BOLA_PRETA:
+                            if tab[linha + 1][coluna] == PECA_PRETA:
                                 count += 1
                             else:
-                                if tab[linha + 1][coluna] == BOLA_BRANCA:
+                                if tab[linha + 1][coluna] == PECA_BRANCA:
                                     count -= 1
                                 else:
                                     tab[linha + 1][coluna] = " x"
@@ -56,26 +58,26 @@ def contar_liberdades(tab, TAM):
                                     if baixo not in liberdades_pretas:
                                         liberdades_pretas.append(baixo)
 
-                    if tab[linha][coluna - 1] == BOLA_BRANCA or coluna == 1:
+                    if tab[linha][coluna - 1] == PECA_BRANCA or coluna == 1:
                         count -= 1
                     else:
-                        if tab[linha][coluna - 1] == BOLA_PRETA:
+                        if tab[linha][coluna - 1] == PECA_PRETA:
                             count += 1
                         else:
-                            if tab[linha][coluna - 1] == BOLA_BRANCA:
+                            if tab[linha][coluna - 1] == PECA_BRANCA:
                                 count -= 1
                             else:
                                 tab[linha][coluna - 1] = " x"
                                 esquerdo = (linha, coluna - 1)
                                 if esquerdo not in liberdades_pretas:
                                     liberdades_pretas.append(esquerdo)
-                    if tab[linha][coluna + 1] == BOLA_BRANCA or coluna == len(tab):
+                    if tab[linha][coluna + 1] == PECA_BRANCA or coluna == len(tab):
                         count -= 1
                     else:
-                        if tab[linha][coluna + 1] == BOLA_PRETA:
+                        if tab[linha][coluna + 1] == PECA_PRETA:
                             count += 1
                         else:
-                            if tab[linha][coluna + 1] == BOLA_BRANCA:
+                            if tab[linha][coluna + 1] == PECA_BRANCA:
                                 count -= 1
                             else:
                                 tab[linha][coluna + 1] = " x"
@@ -86,13 +88,13 @@ def contar_liberdades(tab, TAM):
                     if quadrado not in blocob:
                         blocob.append(quadrado)
 
-                    if tab[linha - 1][coluna] == BOLA_PRETA or linha == 0:
+                    if tab[linha - 1][coluna] == PECA_PRETA or linha == 0:
                         count2 -= 1
                     else:
-                        if tab[linha - 1][coluna] == BOLA_BRANCA:
+                        if tab[linha - 1][coluna] == PECA_BRANCA:
                             count2 += 1
                         else:
-                            if tab[linha - 1][coluna] == BOLA_PRETA:
+                            if tab[linha - 1][coluna] == PECA_PRETA:
                                 count2 += 1
                             else:
                                 tab[linha - 1][coluna] = " Y"
@@ -103,13 +105,13 @@ def contar_liberdades(tab, TAM):
                     if linha == len(tab)-1:
                         count2 -= 1
                     else:
-                        if tab[linha + 1][coluna] == BOLA_PRETA or linha == len(tab) - 1:
+                        if tab[linha + 1][coluna] == PECA_PRETA or linha == len(tab) - 1:
                             count2 -= 1
                         else:
-                            if tab[linha + 1][coluna] == BOLA_BRANCA:
+                            if tab[linha + 1][coluna] == PECA_BRANCA:
                                 count2 += 1
                             else:
-                                if tab[linha + 1][coluna] == BOLA_PRETA:
+                                if tab[linha + 1][coluna] == PECA_PRETA:
                                     count2 += 1
                                 else:
                                     tab[linha + 1][coluna] = " Y"
@@ -117,13 +119,13 @@ def contar_liberdades(tab, TAM):
                                     if cima not in liberdades_pretas:
                                         liberdades_brancas.append(cima)
 
-                    if tab[linha][coluna - 1] == BOLA_PRETA or coluna == 1:
+                    if tab[linha][coluna - 1] == PECA_PRETA or coluna == 1:
                         count2 -= 1
                     else:
-                        if tab[linha][coluna - 1] == BOLA_BRANCA:
+                        if tab[linha][coluna - 1] == PECA_BRANCA:
                             count2 += 1
                         else:
-                            if tab[linha][coluna - 1] == BOLA_PRETA:
+                            if tab[linha][coluna - 1] == PECA_PRETA:
                                 count2 += 1
                             else:
                                 tab[linha][coluna - 1] = " Y"
@@ -131,13 +133,13 @@ def contar_liberdades(tab, TAM):
                                 if esquerdo not in liberdades_pretas:
                                     liberdades_brancas.append(esquerdo)
 
-                    if tab[linha][coluna + 1] == BOLA_PRETA or coluna == len(tab):
+                    if tab[linha][coluna + 1] == PECA_PRETA or coluna == len(tab):
                         count2 -= 1
                     else:
-                        if tab[linha][coluna + 1] == BOLA_BRANCA:
+                        if tab[linha][coluna + 1] == PECA_BRANCA:
                             count2 += 1
                         else:
-                            if tab[linha][coluna + 1] == BOLA_PRETA:
+                            if tab[linha][coluna + 1] == PECA_PRETA:
                                 count2 += 1
                             else:
                                 tab[linha][coluna + 1] = " Y"
@@ -216,80 +218,93 @@ def capturando_innimigo(tab):
         direita = False
 
         for coluna in range(len(tab)):
-            if tab[linha][coluna] == BOLA_PRETA or tab[linha][coluna] == BOLA_BRANCA:
+            if tab[linha][coluna] == PECA_PRETA or tab[linha][coluna] == PECA_BRANCA:
 
-                if tab[linha][coluna] == BOLA_PRETA:
+                if tab[linha][coluna] == PECA_PRETA:
 
-                    if tab[linha - 1][coluna] == BOLA_BRANCA or linha == 0:
+                    if tab[linha - 1][coluna] == PECA_BRANCA or linha == 0:
                         cima = True
                     if linha == len(tab) - 1:
                         baixo = True
                     else:
-                        if tab[linha + 1][coluna] == BOLA_BRANCA or linha == len(tab):
+                        if tab[linha + 1][coluna] == PECA_BRANCA or linha == len(tab):
                             baixo = True
-                    if tab[linha][coluna - 1] == BOLA_BRANCA or coluna == 1:
+                    if tab[linha][coluna - 1] == PECA_BRANCA or coluna == 1:
                         esqueda = True
-                    if tab[linha][coluna + 1] == BOLA_BRANCA or coluna == len(tab):
+                    if tab[linha][coluna + 1] == PECA_BRANCA or coluna == len(tab):
                         direita = True
                     if cima == True and baixo == True and esqueda == True and direita == True:
                         print("Achou Preta!!")
                         break
                 else:
-                    if tab[linha-1][coluna] == BOLA_PRETA or linha == 0:
+                    if tab[linha-1][coluna] == PECA_PRETA or linha == 0:
                         cima = True
                     if linha == len(tab) - 1:
                         baixo = True
                     else:
-                        if tab[linha + 1][coluna] == BOLA_BRANCA or linha == len(tab):
+                        if tab[linha + 1][coluna] == PECA_BRANCA or linha == len(tab):
                             baixo = True
-                    if tab[linha][coluna-1] == BOLA_PRETA or coluna == 1:
+                    if tab[linha][coluna-1] == PECA_PRETA or coluna == 1:
                         esqueda = True
-                    if tab[linha][coluna+1] == BOLA_PRETA or coluna == len(tab):
+                    if tab[linha][coluna+1] == PECA_PRETA or coluna == len(tab):
                         direita = True
                     if cima == True and baixo == True and esqueda == True and direita == True:
                         print("Achou Branca!!")
                         break
 
 
-def verificando_se_he_grupo(tab):
+def verificando_se_he_grupo(tab, linha, coluna):
 
-    for linha in range(len(tab)):
-        cima1 = False
-        baixo1 = False
-        esqueda1 = False
-        direita1 = False
+    cima = tab[linha - 1][coluna]
+    baixo = tab[linha + 1][coluna]
+    esqueda = tab[linha][coluna - 1]
+    direita = tab[linha][coluna + 1]
+    if tab[linha][coluna] == PECA_PRETA:
+        if tab[linha][coluna] not in grupos_P:
+            grupos_P.append((linha, coluna))
 
-        for coluna in range(len(tab)):
-            cima = tab[linha - 1][coluna]
-            baixo = tab[linha + 1][coluna]
-            esqueda = tab[linha][coluna - 1]
-            direita = tab[linha][coluna + 1]
-            if tab[linha][coluna] == BOLA_PRETA:
+        if cima == PECA_PRETA:
+            if cima not in grupos_P:
+                grupos_P.append((linha+1, coluna))
+                verificando_se_he_grupo(tab, linha+1, coluna)
 
+        if baixo == PECA_PRETA:
+            if baixo not in grupos_P:
+                grupos_P.append((linha - 1, coluna))
+                verificando_se_he_grupo(tab, linha - 1, coluna)
 
-                if cima == BOLA_BRANCA or linha == 0:
-                    grupos.append((linha, coluna))
+        if esqueda == PECA_PRETA:
+            if esqueda not in grupos_P:
+                grupos_P.append((linha, coluna - 1))
+                verificando_se_he_grupo(tab, linha, coluna - 1)
 
-                if linha == len(tab) - 1:
+        if direita == PECA_PRETA:
+            if direita not in grupos_P:
+                grupos_P.append((linha, coluna + 1))
+                verificando_se_he_grupo(tab, linha, coluna + 1)
 
-                    baixo1 = True
-                else:
-                    if baixo == BOLA_BRANCA or linha == len(tab):
-                        baixo1 = True
-                if esqueda == BOLA_BRANCA or coluna == 1:
-                    esqueda1 = True
-                if direita == BOLA_BRANCA or coluna == len(tab):
-                    direita1 = True
+    elif tab[linha][coluna] == PECA_BRANCA:
+        if tab[linha][coluna] not in grupos_B:
+            grupos_B.append((linha, coluna))
 
-            else:
-                if cima == BOLA_PRETA or linha == 0:
-                    cima1 = True
-                if linha == len(tab) - 1:
-                    baixo1 = True
-                else:
-                    if baixo == BOLA_BRANCA or linha == len(tab):
-                        baixo1 = True
-                if esqueda == BOLA_PRETA or coluna == 1:
-                    esqueda1 = True
-                if direita == BOLA_PRETA or coluna == len(tab):
-                    direita1 = True
+        if cima == PECA_BRANCA:
+            if cima not in grupos_B:
+                grupos_B.append((linha + 1, coluna))
+                verificando_se_he_grupo(tab, linha + 1, coluna)
+
+        if baixo == PECA_BRANCA:
+            if baixo not in grupos_B:
+                grupos_B.append((linha - 1, coluna))
+                verificando_se_he_grupo(tab, linha - 1, coluna)
+
+        if esqueda == PECA_BRANCA:
+            if esqueda not in grupos_B:
+                grupos_B.append((linha, coluna - 1))
+                verificando_se_he_grupo(tab, linha, coluna - 1)
+
+        if direita == PECA_BRANCA:
+            if direita not in grupos_B:
+                grupos_B.append((linha, coluna + 1))
+                verificando_se_he_grupo(tab, linha, coluna + 1)
+    if tab[linha][coluna] == VAZIO or tab[linha][coluna] == " Y" or tab[linha][coluna] == " x":
+        print(vazio)
