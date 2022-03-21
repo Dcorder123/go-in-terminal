@@ -156,15 +156,15 @@ def controi_tabuleiro(TAM):
         coluna = []
         tab.append(coluna)
         if linhas >= 9:
-            coluna.append("{} |".format(linhas + 1))
+            coluna.append(" {} |".format(linhas + 1))
         else:
             coluna.append("{}  |".format(linhas + 1))
         for colunas in range(TAM):
             if colunas == TAM-1:
-                coluna.append(" .")
+                coluna.append(VAZIO)
                 coluna.append(" |")
             else:
-                coluna.append(" .")
+                coluna.append(VAZIO)
 
     return tab
 
@@ -252,59 +252,51 @@ def capturando_innimigo(tab):
                         print("Achou Branca!!")
                         break
 
+def coordenadas(l, c, direcao):
+    if direcao == "cima":
+        return (l - 1 , c)
+    if direcao == "baixo":
+        return (l + 1, c)
+    if direcao == "esqueda":
+        return (l, c - 1)
+    if direcao == "direita":
+        return  ( l, c + 1)
 
-def verificando_se_he_grupo(tab, linha, coluna):
 
-    cima = tab[linha - 1][coluna]
-    baixo = tab[linha + 1][coluna]
-    esqueda = tab[linha][coluna - 1]
-    direita = tab[linha][coluna + 1]
+def verificando_se_he_grupo(tab, linha, coluna, tam):
+    if linha < 2:
+        cima = VAZIO
+    else:
+        cima = tab[linha - 1][coluna]
+    if linha == tam-1:
+        baixo = VAZIO
+    else:
+        baixo = tab[linha + 1][coluna]
+    if coluna < 2:
+        esqueda = VAZIO
+    else:
+        esqueda = tab[linha][coluna - 1]
+    if coluna == tam - 1:
+        direita = VAZIO
+    else:
+        direita = tab[linha][coluna + 1]
+
     if tab[linha][coluna] == PECA_PRETA:
-        if tab[linha][coluna] not in grupos_P:
-            grupos_P.append((linha, coluna))
+        if (cima in [VAZIO, " x", " Y", " |"])\
+                and (baixo in [VAZIO, " x", " Y",  " |"])\
+                and (esqueda in [VAZIO, " x", " Y", " |"])\
+                and (direita in [VAZIO, " x", " Y", " |"]):
+            grupos_P.append([])
+            grupos_P[-1].append((linha, coluna))
+        if coordenadas(l, c, "cima") == PECA_PRETA:
+            PECA_PRETA in grupos_B
 
-        if cima == PECA_PRETA:
-            if cima not in grupos_P:
-                grupos_P.append((linha+1, coluna))
-                verificando_se_he_grupo(tab, linha+1, coluna)
 
-        if baixo == PECA_PRETA:
-            if baixo not in grupos_P:
-                grupos_P.append((linha - 1, coluna))
-                verificando_se_he_grupo(tab, linha - 1, coluna)
-
-        if esqueda == PECA_PRETA:
-            if esqueda not in grupos_P:
-                grupos_P.append((linha, coluna - 1))
-                verificando_se_he_grupo(tab, linha, coluna - 1)
-
-        if direita == PECA_PRETA:
-            if direita not in grupos_P:
-                grupos_P.append((linha, coluna + 1))
-                verificando_se_he_grupo(tab, linha, coluna + 1)
 
     elif tab[linha][coluna] == PECA_BRANCA:
-        if tab[linha][coluna] not in grupos_B:
-            grupos_B.append((linha, coluna))
-
-        if cima == PECA_BRANCA:
-            if cima not in grupos_B:
-                grupos_B.append((linha + 1, coluna))
-                verificando_se_he_grupo(tab, linha + 1, coluna)
-
-        if baixo == PECA_BRANCA:
-            if baixo not in grupos_B:
-                grupos_B.append((linha - 1, coluna))
-                verificando_se_he_grupo(tab, linha - 1, coluna)
-
-        if esqueda == PECA_BRANCA:
-            if esqueda not in grupos_B:
-                grupos_B.append((linha, coluna - 1))
-                verificando_se_he_grupo(tab, linha, coluna - 1)
-
-        if direita == PECA_BRANCA:
-            if direita not in grupos_B:
-                grupos_B.append((linha, coluna + 1))
-                verificando_se_he_grupo(tab, linha, coluna + 1)
-    if tab[linha][coluna] == VAZIO or tab[linha][coluna] == " Y" or tab[linha][coluna] == " x":
-        print(vazio)
+        if (cima in [VAZIO, " x", " Y", " |"])\
+                and (baixo in [VAZIO, " x", " Y", " |"])\
+                and (esqueda in [VAZIO, " x", " Y", " |"])\
+                and (direita in [VAZIO, " x", " Y", " |"]):
+            grupos_B.append([])
+            grupos_B[-1].append((linha, coluna))
