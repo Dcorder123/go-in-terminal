@@ -1,10 +1,11 @@
-BOLA_PRETA = " ◯"
-BOLA_BRANCA = " ●"
-VAZIO = "  ."
+PECA_PRETA = " ◯"
+PECA_BRANCA = " ●"
+VAZIO = " ."
 JOG1 = 1
 JOG2 = 2
 liberdade = 8
 letras_minusculas = ["a", "b", "c",  "d",  "e",  "f",  "g",  "h",  "i",  "j",  "k",  "l",  "m",  "n",  "o",  "p",  "q", "r", "s"]
+
 
 tab9 = """
       A  B  C  D  E  F  G  H  I
@@ -56,3 +57,5 @@ tab19 = """
 17 |  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  | 
 18 |  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  | 
 19 |  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  | """
+
+
