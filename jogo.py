@@ -14,7 +14,7 @@ def contar_liberdades(tab):
 
     for linha in range(len(tab)):
         for coluna in range(len(tab)+1):
-            quadrado = (linha, coluna)
+
             if linha != 0:
                 cima = tab[linha - 1][coluna]
             else:
@@ -25,6 +25,7 @@ def contar_liberdades(tab):
                 baixo = "xxxxxxxx"
             esquerda = tab[linha][coluna - 1]
             direita = tab[linha][coluna + 1]
+            quadrado = (linha, coluna)
 
             if tab[linha][coluna] == PECA_PRETA or tab[linha][coluna] == PECA_BRANCA:
 
@@ -212,10 +213,10 @@ def verificando_se_he_grupo(tab, linha, coluna, tam):
         direita = tab[linha][coluna + 1]
 
     if tab[linha][coluna] == PECA_PRETA:
-        if (cima in [VAZIO, " x", " Y", " |"])\
-                and (baixo in [VAZIO, " x", " Y",  " |"])\
-                and (esquerda in [VAZIO, " x", " Y", " |"])\
-                and (direita in [VAZIO, " x", " Y", " |"]):
+        if (cima in [VAZIO, " x", " Y", " |", PECA_BRANCA])\
+                and (baixo in [VAZIO, " x", " Y",  " |", PECA_BRANCA])\
+                and (esquerda in [VAZIO, " x", " Y", " |", PECA_BRANCA])\
+                and (direita in [VAZIO, " x", " Y", " |", PECA_BRANCA]):
             grupos_P.append([])
             grupos_P[-1].append((linha, coluna))
         
@@ -253,10 +254,10 @@ def verificando_se_he_grupo(tab, linha, coluna, tam):
             index += 1  # Atualiza o valor do index
 
     elif tab[linha][coluna] == PECA_BRANCA:
-        if (cima in [VAZIO, " x", " Y", " |"])\
-                and (baixo in [VAZIO, " x", " Y", " |"])\
-                and (esquerda in [VAZIO, " x", " Y", " |"])\
-                and (direita in [VAZIO, " x", " Y", " |"]):
+        if (cima in [VAZIO, " x", " Y", " |", PECA_PRETA])\
+                and (baixo in [VAZIO, " x", " Y", " |", PECA_PRETA])\
+                and (esquerda in [VAZIO, " x", " Y", " |", PECA_PRETA])\
+                and (direita in [VAZIO, " x", " Y", " |", PECA_PRETA]):
             grupos_B.append([])
             grupos_B[-1].append((linha, coluna))
             
@@ -294,3 +295,7 @@ def verificando_se_he_grupo(tab, linha, coluna, tam):
             index += 1  # Atualiza o valor do index
                            
         #######
+
+def lipamdo_liberdades():
+    liberdades_pretas.clear()
+    liberdades_brancas.clear()
