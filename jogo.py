@@ -10,13 +10,21 @@ grupos_B = []
 
 
 # contar liberdades e salvar coordenadas das peças em grupo
-def contar_liberdades(tab, TAM):
+def contar_liberdades(tab):
 
-    count = 8
-    count2 = 8
     for linha in range(len(tab)):
         for coluna in range(len(tab)+1):
             quadrado = (linha, coluna)
+            if linha != 0:
+                cima = tab[linha - 1][coluna]
+            else:
+                cima = "xxxxxxxxx"
+            if linha != len(tab) - 1:
+                baixo = tab[linha + 1][coluna]
+            else:
+                baixo = "xxxxxxxx"
+            esquerda = tab[linha][coluna - 1]
+            direita = tab[linha][coluna + 1]
 
             if tab[linha][coluna] == PECA_PRETA or tab[linha][coluna] == PECA_BRANCA:
 
@@ -24,128 +32,49 @@ def contar_liberdades(tab, TAM):
                     if quadrado not in blocop:
                         blocop.append(quadrado)
 
-                    if tab[linha - 1][coluna] == PECA_BRANCA or linha == 0:
-                        count -= 1
-                    else:
-                        if tab[linha - 1][coluna] == PECA_PRETA:
-                            count += 1
-                        else:
-                            if tab[linha - 1][coluna] == PECA_BRANCA:
-                                count += 1
-                            else:
-                                if tab[linha - 1][coluna] == PECA_PRETA:
-                                    count -= 1
-                                else:
-                                    tab[linha - 1][coluna] = " x"
-                                    cima = (linha - 1, coluna)
-                                    if cima not in liberdades_pretas:
-                                        liberdades_pretas.append(cima)
+                    if cima in [VAZIO, " x", " Y"]:
+                        tab[linha - 1][coluna] = " x"
+                        if cima not in liberdades_pretas:
+                            liberdades_pretas.append(coordenadas(linha, coluna, "cima"))
+                    if linha != len(tab) - 1:
+                        if baixo in [VAZIO, " x", " Y"]:
+                            tab[linha + 1][coluna] = " x"
+                            if baixo not in liberdades_pretas:
+                                liberdades_pretas.append(coordenadas(linha, coluna, "baixo"))
 
-                    if linha == len(tab) - 1:
-                        count -= 1
-                    else:
-                        if tab[linha + 1][coluna] == PECA_PRETA or linha == len(tab) - 1:
-                            count -= 1
-                        else:
-                            if tab[linha + 1][coluna] == PECA_PRETA:
-                                count += 1
-                            else:
-                                if tab[linha + 1][coluna] == PECA_BRANCA:
-                                    count -= 1
-                                else:
-                                    tab[linha + 1][coluna] = " x"
-                                    baixo = (linha + 1, coluna)
-                                    if baixo not in liberdades_pretas:
-                                        liberdades_pretas.append(baixo)
+                    if esquerda in [VAZIO, " x", " Y"]:
+                        tab[linha][coluna - 1] = " x"
+                        if esquerda not in liberdades_pretas:
+                            liberdades_pretas.append(coordenadas(linha, coluna, "esquerda"))
 
-                    if tab[linha][coluna - 1] == PECA_BRANCA or coluna == 1:
-                        count -= 1
-                    else:
-                        if tab[linha][coluna - 1] == PECA_PRETA:
-                            count += 1
-                        else:
-                            if tab[linha][coluna - 1] == PECA_BRANCA:
-                                count -= 1
-                            else:
-                                tab[linha][coluna - 1] = " x"
-                                esquerdo = (linha, coluna - 1)
-                                if esquerdo not in liberdades_pretas:
-                                    liberdades_pretas.append(esquerdo)
-                    if tab[linha][coluna + 1] == PECA_BRANCA or coluna == len(tab):
-                        count -= 1
-                    else:
-                        if tab[linha][coluna + 1] == PECA_PRETA:
-                            count += 1
-                        else:
-                            if tab[linha][coluna + 1] == PECA_BRANCA:
-                                count -= 1
-                            else:
-                                tab[linha][coluna + 1] = " x"
-                                direita = (linha, coluna + 1)
-                                if direita not in liberdades_pretas:
-                                    liberdades_pretas.append(direita)
+                    if direita in [VAZIO, " x", " Y"]:
+                        tab[linha][coluna + 1] = " x"
+                        if direita not in liberdades_pretas:
+                            liberdades_pretas.append(coordenadas(linha, coluna, "direita"))
+
                 else:
                     if quadrado not in blocob:
                         blocob.append(quadrado)
 
-                    if tab[linha - 1][coluna] == PECA_PRETA or linha == 0:
-                        count2 -= 1
-                    else:
-                        if tab[linha - 1][coluna] == PECA_BRANCA:
-                            count2 += 1
-                        else:
-                            if tab[linha - 1][coluna] == PECA_PRETA:
-                                count2 += 1
-                            else:
-                                tab[linha - 1][coluna] = " Y"
-                                baixo = (linha - 1, coluna)
-                                if baixo not in liberdades_pretas:
-                                    liberdades_brancas.append(baixo)
+                    if cima in [VAZIO, " x", " Y"]:
+                        tab[linha - 1][coluna] = " Y"
+                        if cima not in liberdades_pretas:
+                            liberdades_brancas.append(coordenadas(linha, coluna, "cima"))
+                    if linha != len(tab) - 1:
+                        if baixo in [VAZIO, " x", " Y"]:
+                            tab[linha + 1][coluna] = " Y"
+                            if baixo not in liberdades_pretas:
+                                liberdades_brancas.append(coordenadas(linha, coluna, "baixo"))
 
-                    if linha == len(tab)-1:
-                        count2 -= 1
-                    else:
-                        if tab[linha + 1][coluna] == PECA_PRETA or linha == len(tab) - 1:
-                            count2 -= 1
-                        else:
-                            if tab[linha + 1][coluna] == PECA_BRANCA:
-                                count2 += 1
-                            else:
-                                if tab[linha + 1][coluna] == PECA_PRETA:
-                                    count2 += 1
-                                else:
-                                    tab[linha + 1][coluna] = " Y"
-                                    cima = (linha + 1, coluna)
-                                    if cima not in liberdades_pretas:
-                                        liberdades_brancas.append(cima)
+                    if esquerda in [VAZIO, " x", " Y"]:
+                        tab[linha][coluna - 1] = " Y"
+                        if esquerda not in liberdades_pretas:
+                            liberdades_brancas.append(coordenadas(linha, coluna, "esquerda"))
 
-                    if tab[linha][coluna - 1] == PECA_PRETA or coluna == 1:
-                        count2 -= 1
-                    else:
-                        if tab[linha][coluna - 1] == PECA_BRANCA:
-                            count2 += 1
-                        else:
-                            if tab[linha][coluna - 1] == PECA_PRETA:
-                                count2 += 1
-                            else:
-                                tab[linha][coluna - 1] = " Y"
-                                esquerdo = (linha, coluna - 1)
-                                if esquerdo not in liberdades_pretas:
-                                    liberdades_brancas.append(esquerdo)
-
-                    if tab[linha][coluna + 1] == PECA_PRETA or coluna == len(tab):
-                        count2 -= 1
-                    else:
-                        if tab[linha][coluna + 1] == PECA_BRANCA:
-                            count2 += 1
-                        else:
-                            if tab[linha][coluna + 1] == PECA_PRETA:
-                                count2 += 1
-                            else:
-                                tab[linha][coluna + 1] = " Y"
-                                direita = (linha, coluna + 1)
-                                if direita not in liberdades_pretas:
-                                    liberdades_brancas.append(direita)
+                    if direita in [VAZIO, " x", " Y"]:
+                        tab[linha][coluna + 1] = " Y"
+                        if direita not in liberdades_pretas:
+                            liberdades_brancas.append(coordenadas(linha, coluna, "direita"))
 
 
 def controi_tabuleiro(TAM):
@@ -252,6 +181,7 @@ def capturando_innimigo(tab):
                         print("Achou Branca!!")
                         break
 
+
 def coordenadas(l, c, direcao):
     if direcao == "cima":
         return (l - 1 , c)
@@ -260,7 +190,7 @@ def coordenadas(l, c, direcao):
     if direcao == "esquerda":
         return (l, c - 1)
     if direcao == "direita":
-        return  ( l, c + 1)
+        return (l, c + 1)
 
 
 def verificando_se_he_grupo(tab, linha, coluna, tam):
@@ -290,15 +220,14 @@ def verificando_se_he_grupo(tab, linha, coluna, tam):
             grupos_P[-1].append((linha, coluna))
         
         ########
-        cima_peca = coordenadas(linha, coluna, "cima") #Posição da jogada
+        cima_peca = coordenadas(linha, coluna, "cima")  # Posição da jogada
         baixo_peca = coordenadas(linha, coluna, "baixo")
         esquerda_peca = coordenadas(linha, coluna, "esquerda")
         direita_peca = coordenadas(linha, coluna, "direita")
-        
-    
-        primeiro = -1 # Index do primeiro item da lista que faz grupo com a peça adicionada
-        ja_adicionou = False # Verifica se a peça já foi adicionada a outra lista
-        index = 0 # Index na lista de grupos
+
+        primeiro = -1  # Index do primeiro item da lista que faz grupo com a peça adicionada
+        ja_adicionou = False  # Verifica se a peça já foi adicionada a outra lista
+        index = 0  # Index na lista de grupos
         
         while index < len(grupos_P):
             
@@ -310,21 +239,18 @@ def verificando_se_he_grupo(tab, linha, coluna, tam):
             
             # Caso tenha vizinho
             if cima_peca_veri or baixo_peca_veri or esquerda_peca_veri or direita_peca_veri:
-                if not ja_adicionou: # Caso o item ainda não sido adicinado
-                    grupos_P[index].append((linha, coluna)) # Adiciono ao grupo
-                    primeiro = index # Seta o index do primeiro grupo
-                    ja_adicionou = True # Seta o já adicionado
+                if not ja_adicionou:  # Caso o item ainda não sido adicinado
+                    grupos_P[index].append((linha, coluna))  # Adiciono ao grupo
+                    primeiro = index  # Seta o index do primeiro grupo
+                    ja_adicionou = True  # Seta o já adicionado
                     
-                else: # Caso o item já tenha sido adicionado
-                    for item in grupos_P[index]: # Pega todos os peças da lista atual e adiciona a primeira lista
+                else:  # Caso o item já tenha sido adicionado
+                    for item in grupos_P[index]:  # Pega todos os peças da lista atual e adiciona a primeira lista
                         grupos_P[primeiro].append((item[0], item[1]))
-                    del grupos_P[index] # Deleta a lista atual
+                    del grupos_P[index]  # Deleta a lista atual
                     index -= 1
                     
-            index += 1 # Atualiza o valor do index
-                           
-        #######
-
+            index += 1  # Atualiza o valor do index
 
     elif tab[linha][coluna] == PECA_BRANCA:
         if (cima in [VAZIO, " x", " Y", " |"])\
@@ -334,15 +260,15 @@ def verificando_se_he_grupo(tab, linha, coluna, tam):
             grupos_B.append([])
             grupos_B[-1].append((linha, coluna))
             
-        cima_peca = coordenadas(linha, coluna, "cima") #Posição da jogada
+        cima_peca = coordenadas(linha, coluna, "cima")  #Posição da jogada
         baixo_peca = coordenadas(linha, coluna, "baixo")
         esquerda_peca = coordenadas(linha, coluna, "esquerda")
         direita_peca = coordenadas(linha, coluna, "direita")
         
     
-        primeiro = -1 # Index do primeiro item da lista que faz grupo com a peça adicionada
-        ja_adicionou = False # Verifica se a peça já foi adicionada a outra lista
-        index = 0 # Index na lista de grupos
+        primeiro = -1  # Index do primeiro item da lista que faz grupo com a peça adicionada
+        ja_adicionou = False  # Verifica se a peça já foi adicionada a outra lista
+        index = 0  # Index na lista de grupos
         
         while index < len(grupos_B):
             
@@ -354,19 +280,17 @@ def verificando_se_he_grupo(tab, linha, coluna, tam):
             
             # Caso tenha vizinho
             if cima_peca_veri or baixo_peca_veri or esquerda_peca_veri or direita_peca_veri:
-                if not ja_adicionou: # Caso o item ainda não sido adicinado
-                    grupos_B[index].append((linha, coluna)) # Adiciono ao grupo
-                    primeiro = index # Seta o index do primeiro grupo
-                    ja_adicionou = True # Seta o já adicionado
+                if not ja_adicionou:  # Caso o item ainda não sido adicinado
+                    grupos_B[index].append((linha, coluna))  # Adiciono ao grupo
+                    primeiro = index  # Seta o index do primeiro grupo
+                    ja_adicionou = True  # Seta o já adicionado
                     
-                else: # Caso o item já tenha sido adicionado
-                    for item in grupos_B[index]: # Pega todos os peças da lista atual e adiciona a primeira lista
+                else:  # Caso o item já tenha sido adicionado
+                    for item in grupos_B[index]:   # Pega todos os peças da lista atual e adiciona a primeira lista
                         grupos_B[primeiro].append((item[0], item[1]))
-                    del grupos_B[index] # Deleta a lista atual
+                    del grupos_B[index]   # Deleta a lista atual
                     index -= 1
                     
-            index += 1 # Atualiza o valor do index
+            index += 1  # Atualiza o valor do index
                            
         #######
-            
-            
