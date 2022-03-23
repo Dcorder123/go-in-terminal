@@ -255,9 +255,18 @@ def verificando_se_he_grupo(tab, linha, coluna, tam):
 def lipamdo_liberdades():
     liberdades_pretas.clear()
     liberdades_brancas.clear()
+    #grupos_B.clear()
+    #grupos_P.clear()
 
 
 def analisa_liberdade_grupo(tab, lista_grupos, jogador):
+    """
+
+    :param tab:
+    :param lista_grupos:
+    :param jogador:
+    :return:
+    """
 
     for grupo in lista_grupos:
         pecas_livres = []
@@ -267,10 +276,16 @@ def analisa_liberdade_grupo(tab, lista_grupos, jogador):
 
         if len(pecas_livres) == 0:
             captura(tab, grupo, jogador)
+            lista_grupos.remove(grupo)
 
 
 def peca_livre(tab, peca):
+    """
 
+    :param tab:matriz para poder efetuar verificação
+    :param peca:coordenada da matriz da peça sendo analisada no momento
+    :return: retorna falso ou Verdaeiro se tem uma peça em cima , baixo , esquerdo, direita
+    """
     # print(tab[peca[0]][peca[1]])  # peca no tabuleiro
 
     # print(tab[peca[0] - 1][peca[1]])  # vizinho de cima
@@ -278,10 +293,22 @@ def peca_livre(tab, peca):
     # print(tab[peca[0]][peca[1] - 1])  # vizinho da esquerda
     # print(tab[peca[0]][peca[1] + 1])  # vizinho da direita
 
-    vizinho_cima = tab[peca[0] - 1][peca[1]] != PECA_PRETA and tab[peca[0] - 1][peca[1]] != PECA_BRANCA
-    vizinho_baixo = tab[peca[0] + 1][peca[1]] != PECA_PRETA and tab[peca[0] + 1][peca[1]] != PECA_BRANCA
-    vizinho_esquerda = tab[peca[0]][peca[1] - 1] != PECA_PRETA and tab[peca[0]][peca[1] - 1] != PECA_BRANCA
-    vizinho_direita = tab[peca[0]][peca[1] + 1] != PECA_PRETA and tab[peca[0]][peca[1] + 1] != PECA_BRANCA
+    if peca[0] == 0:
+        vizinho_cima = False
+    else:
+        vizinho_cima = tab[peca[0] - 1][peca[1]] != PECA_PRETA and tab[peca[0] - 1][peca[1]] != PECA_BRANCA
+    if peca[0] == len(tab) - 1:
+        vizinho_baixo = False
+    else:
+        vizinho_baixo = tab[peca[0] + 1][peca[1]] != PECA_PRETA and tab[peca[0] + 1][peca[1]] != PECA_BRANCA
+    if peca[1] == 1:
+        vizinho_esquerda = False
+    else:
+        vizinho_esquerda = tab[peca[0]][peca[1] - 1] != PECA_PRETA and tab[peca[0]][peca[1] - 1] != PECA_BRANCA
+    if peca[1] == len(tab):
+        vizinho_direita = False
+    else:
+        vizinho_direita = tab[peca[0]][peca[1] + 1] != PECA_PRETA and tab[peca[0]][peca[1] + 1] != PECA_BRANCA
 
     return vizinho_cima or vizinho_baixo or vizinho_esquerda or vizinho_direita
 
