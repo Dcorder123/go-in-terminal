@@ -18,7 +18,7 @@ def controi_tabuleiro(tamanho):
         coluna = []
         tab.append(coluna)
         if linhas >= 9:
-            coluna.append(" {} |".format(linhas + 1))
+            coluna.append("{} |".format(linhas + 1))
         else:
             coluna.append("{}  |".format(linhas + 1))
         for colunas in range(tamanho):
@@ -240,13 +240,6 @@ def peca_livre(tab, peca):
     :param peca:coordenada da matriz da peça sendo analisada no momento
     :return: retorna falso ou Verdaeiro se tem uma peça em cima , baixo , esquerdo, direita
     """
-    # print(tab[peca[0]][peca[1]])  # peca no tabuleiro
-
-    # print(tab[peca[0] - 1][peca[1]])  # vizinho de cima
-    # print(tab[peca[0] + 1][peca[1]])  # vizinho de baixo
-    # print(tab[peca[0]][peca[1] - 1])  # vizinho da esquerda
-    # print(tab[peca[0]][peca[1] + 1])  # vizinho da direita
-
     if peca[0] == 0:
         vizinho_cima = False
     else:
@@ -275,9 +268,22 @@ def captura(tab, grupo, jogador):
     :param jogador:Jogador a ganhar os pontos da captura
     :return:retorna a lista da matriz autalizada sem as peças e contador atualizado
     """
+    grupo = list(set(grupo))
     for peca in grupo:
         tab[peca[0]][peca[1]] = VAZIO
         if jogador == PECA_BRANCA:
             constantes.PONTOS_JOG2 += 1
         elif jogador == PECA_PRETA:
             constantes.PONTOS_JOG1 += 1
+
+
+def condiz_fim_jogo(tab, tamanho):
+    meta = int(tamanho*tamanho*0.60)
+    contador = 0
+    for linha in range(len(tab)):
+        for coluna in range(len(tab)):
+            if tab[linha][coluna] in [PECA_PRETA, PECA_BRANCA]:
+                contador += 1
+    if contador >= meta:
+        pergunta = input("Vocês gostariam de Acabar o jogo se sim[s] se não[n]?").lower()
+        return pergunta

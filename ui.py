@@ -30,8 +30,10 @@ def chamando_coluna_linha(tam, tab):
     :return: linha e coluna corretas para a movimentação e também menssagens de erros quando errada
     """
 
-    letras = ["A", "B", "C",  "D",  "E ",  "F",  "G",  "H",  "I",  "J",  "K",  "L",  "M",  "N",  "O",  "P",  "Q",  "R", "S"]
-    numeros = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"]
+    letras = ["A", "B", "C",  "D",  "E ",  "F",  "G",  "H",  "I",
+              "J",  "K",  "L",  "M",  "N",  "O",  "P",  "Q",  "R", "S"]
+    numeros = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+               "11", "12", "13", "14", "15", "16", "17", "18", "19"]
 
     coluna = input("Qual coluna de A a {}? ".format(letras[tam - 1])).lower()
 
@@ -65,7 +67,6 @@ def chamando_coluna_linha(tam, tab):
         return inter, linha
 
 
-
 # Inicia o jogo
 nome_jog1 = input("Nome de Jogador 1: ")
 NOMES.append(nome_jog1)
@@ -92,4 +93,4 @@ while True:
     analisa_liberdade_grupo(tabuleiro, grupos_P, PECA_BRANCA)
     print("Pontos do Jogador 1: {}\nPontos do Jogador 2: {}".format(constantes.PONTOS_JOG1, constantes.PONTOS_JOG2))
     imprime_matriz(tabuleiro, TAM)
-
+    fim = condiz_fim_jogo(tabuleiro, TAM)
