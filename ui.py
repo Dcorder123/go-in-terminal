@@ -68,7 +68,7 @@ while True:
     contar_liberdades(e)
     verificando_se_he_grupo(e, linha1 - 1, coluna1, TAM)
     analisa_liberdade_grupo(e, grupos_B, PECA_PRETA)
-    print("Pontos do Jogador 1: {} Pontos do Jogador 2: {}".format(PONTOS_JOG1, PONTOS_JOG2))
+    print("Pontos do Jogador 1: {} \nPontos do Jogador 2: {}".format(constantes.PONTOS_JOG1, constantes.PONTOS_JOG2))
     imprime_matriz(e, TAM)
     lipamdo_liberdades()
 
@@ -78,7 +78,7 @@ while True:
     contar_liberdades(e)
     verificando_se_he_grupo(e, linha2 - 1, coluna2, TAM)
     analisa_liberdade_grupo(e, grupos_P, PECA_BRANCA)
-    print("Pontos do Jogador 1: {} Pontos do Jogador 2: {}".format(PONTOS_JOG1, PONTOS_JOG2))
+    print("Pontos do Jogador 1: {}\n Pontos do Jogador 2: {}".format(constantes.PONTOS_JOG1, constantes.PONTOS_JOG2))
     imprime_matriz(e, TAM)
     # print(blocop)
     # print(blocob)
