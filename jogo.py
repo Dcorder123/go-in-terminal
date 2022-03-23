@@ -12,6 +12,11 @@ grupos_B = []
 
 # contar liberdades e salvar coordenadas das peças em grupo
 def contar_liberdades(tab):
+    """
+
+    :param tab: Lista da matriz que é usada para analisar e atualizar sobre as liberdades
+    :return: retorna a lista atualizada representativamente das liberdades das peças junto com suas cooordenadas
+    """
     for linha in range(len(tab)):
         for coluna in range(len(tab) + 1):
 
@@ -79,7 +84,11 @@ def contar_liberdades(tab):
 
 
 def controi_tabuleiro(TAM):
-    """construir o tabuleiro de Go para iniciar"""
+    """
+    construir o tabuleiro de Go para iniciar
+    :param TAM: Tamanho do tabuleiro de Go que foi solicitado
+    :return: Matriz do tabeiro feita
+    """
 
     tab = []
     for linhas in range(TAM):
@@ -101,8 +110,8 @@ def controi_tabuleiro(TAM):
 
 def imprime_matriz(m, tam):
     """
-    Imprime um tabuleiro
-    :param m: o tabuleiro a ser impresso
+    Imprime a matriz do tabuleiro
+    :param m: A matriz do tabuleiro a ser impresso
     """
     if tam == 9:
         print("      A  B  C  D  E  F  G  H  I")
@@ -119,9 +128,17 @@ def imprime_matriz(m, tam):
                 print(m[linha][coluna], end=" ")
         print()
 
-
 def movimentando_tab(linha, coluna, tab, JOG, BOLA_BRANCA, BOLA_PRETA):
-    """movimentação de Go na linha e na coluna que foi selecionado as peças"""
+    """
+    movimentação de Go na linha e na coluna que foi selecionado as peças
+    :param linha:linha da matriz
+    :param coluna: coluna da matriz
+    :param tab: matriz
+    :param JOG: Jogador
+    :param BOLA_BRANCA:Peça Branca para identificar
+    :param BOLA_PRETA: Peça Branca para identificar
+    :return: O tabuleiro autualiza como a peça no local
+    """
 
     if JOG == 1:
         tab[linha][coluna] = BOLA_PRETA
@@ -131,7 +148,11 @@ def movimentando_tab(linha, coluna, tab, JOG, BOLA_BRANCA, BOLA_PRETA):
 
 
 def interpretando_c(c):
-    """interpretando as entradas de coluna que vão de A a S e substuindo por número interiro"""
+    """
+    interpretando as entradas de coluna que vão de A a S e substuindo por número interiro
+    :param c: Coluna representada por Letras
+    :return: retorna o número da coluna em inteiros
+    """
 
     for i in range(len(letras_minusculas)):
         if c == letras_minusculas[i]:
@@ -140,6 +161,13 @@ def interpretando_c(c):
 
 
 def coordenadas(l, c, direcao):
+    """
+    função de pegar a direção e retornar as coordenadas da direção de verificação
+    :param l: linha da matriz do tabuleiro
+    :param c: coluna da matriz do tabuleiro
+    :param direcao: Direção de verificação
+    :return: retorna coordenadas de verificão
+    """
     if direcao == "cima":
         return (l - 1, c)
     if direcao == "baixo":
@@ -151,6 +179,14 @@ def coordenadas(l, c, direcao):
 
 
 def verificando_se_he_grupo(tab, linha, coluna, tam):
+    """
+    verifica a cada movimento se formou um grupo verificando as direçãos das peças
+    :param tab: Matriz da tabuleiro
+    :param linha: linha da movimentação atual do tabeliro
+    :param coluna: Coluna da movimentação atual do tabeliro
+    :param tam: Tamanho da matriz do tabuleiro
+    :return: As listas de grupos atualizadas com coordenadas de grupos
+    """
     if linha < 2:
         cima = VAZIO
     else:
@@ -253,19 +289,22 @@ def verificando_se_he_grupo(tab, linha, coluna, tam):
 
 
 def lipamdo_liberdades():
+    """
+    limpa lista para atualizar de maneira correta
+    :return:listas limpas
+    """
     liberdades_pretas.clear()
     liberdades_brancas.clear()
-    #grupos_B.clear()
-    #grupos_P.clear()
 
 
 def analisa_liberdade_grupo(tab, lista_grupos, jogador):
     """
-
-    :param tab:
-    :param lista_grupos:
-    :param jogador:
-    :return:
+    Verificas grupos se tem peças com liberdades livres se não houver chama
+    função de captura e repove grupo da lista de grupo
+    :param tab:Matriz do tabuleira para fazer verificação
+    :param lista_grupos:Lista atual de grupos sendo analisada as liberdades
+    :param jogador:Qual jogador vai pontuar se houver captura do grupo
+    :return: captura ou não das peças
     """
 
     for grupo in lista_grupos:
@@ -281,7 +320,8 @@ def analisa_liberdade_grupo(tab, lista_grupos, jogador):
 
 def peca_livre(tab, peca):
     """
-
+    função que faz verificações das liberdades se tudo voltar false é por que não tem nenhuma liberdade
+    se faltar alguma true é por que tem alguma liberdade
     :param tab:matriz para poder efetuar verificação
     :param peca:coordenada da matriz da peça sendo analisada no momento
     :return: retorna falso ou Verdaeiro se tem uma peça em cima , baixo , esquerdo, direita
@@ -314,6 +354,13 @@ def peca_livre(tab, peca):
 
 
 def captura(tab, grupo, jogador):
+    """
+    função que substitui coordanadas dos grupo em Vazio e da um acrecimo de quantidade de peças no contador
+    :param tab:Matriz do tabuleiro
+    :param grupo:Grupo de peças capturadas
+    :param jogador:Jogador a ganhar os pontos da captura
+    :return:retorna a lista da matriz autalizada sem as peças e contador atualizado
+    """
     for peca in grupo:
         tab[peca[0]][peca[1]] = VAZIO
         if jogador == PECA_BRANCA:

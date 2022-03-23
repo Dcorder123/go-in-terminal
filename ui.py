@@ -1,8 +1,14 @@
 from jogo import *
 from constantes import *
+from termcolor import colored
 
 
 def tamanho_tabuleiro():
+    """
+    Função que chama o tamanho do tabuleiro e se for tamanho fora dos parametros chama de novo
+    a função
+    :return: tamanho do tabuleiro
+    """
     print("Tamanho 9x9 {} Tamanho 13x13 {}\n Tamanho 19x19 {}".format(tab9, tab13, tab19))
     print()
     tamnaho_tabuleiro = input("Qual o tamanho que gotariam de jogar 9x9(9) ou 13x13(13) ou 19x19(19)? ")
@@ -16,8 +22,13 @@ def tamanho_tabuleiro():
 
 
 def chamando_coluna_linha(tam, tab):
-    """Nessa função iremos pedir a coluna e a linha iremos verificar se podemos fazer a jogada
-    e se está dentro dos parametros"""
+    """
+    Nessa função iremos pedir a coluna e a linha iremos verificar se podemos fazer a jogada
+    e se está dentro dos parametros
+    :param tam:Tamanho da Matriz do tabuleiro
+    :param tab: Matriz do tabeleiro
+    :return: linha e coluna corretas para a movimentação e também menssagens de erros quando errada
+    """
 
     letras = ["A", "B", "C",  "D",  "E ",  "F",  "G",  "H",  "I",  "J",  "K",  "L",  "M",  "N",  "O",  "P",  "Q",  "R", "S"]
     numeros = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"]
@@ -25,28 +36,28 @@ def chamando_coluna_linha(tam, tab):
     coluna = input("Qual coluna de A a {}? ".format(letras[tam - 1])).lower()
 
     if coluna not in letras_minusculas:
-        print("Fora do parametro")
+        print(colored("Fora do parametro", "red"))
         imprime_matriz(e, tam)
         return chamando_coluna_linha(tam, tab)
 
     pego_linha = input("Qual linha de 1 a {}? ".format(tam))
 
     if pego_linha not in numeros:
-        print("Tem que ser numeros positivos entre 1 e {}".format(tam))
-        print("Ou ser Inteiro!")
+        print(colored("Tem que ser numeros positivos entre 1 e {}".format(tam), "red"))
+        print(colored("Ou ser Inteiro!", "red"))
         imprime_matriz(e, tam)
         return chamando_coluna_linha(tam, tab)
     linha = int(pego_linha)
     inter = interpretando_c(coluna)
 
     if inter > tam or linha > tam or inter < 0 or linha < 0:
-        print("Posição fora do tabuleiro")
-        print("Escolha outra posição")
+        print(colored("Posição fora do tabuleiro", "red"))
+        print(colored("Escolha outra posição!!", "red"))
         imprime_matriz(e, tam)
         return chamando_coluna_linha(tam, tab)
     if tab[linha - 1][inter] == PECA_PRETA or tab[linha - 1][inter] == PECA_BRANCA:
-        print("Já tem uma peça nessa posição!")
-        print(" Por favor escolher outra posição")
+        print(colored("Já tem uma peça nessa posição!", "red"))
+        print(colored("Por favor escolher outra posição", "red"))
         imprime_matriz(e, tam)
         return chamando_coluna_linha(tam, tab)
 
@@ -56,13 +67,17 @@ def chamando_coluna_linha(tam, tab):
 
 
 # Inicia o jogo
+nome_jog1 = input("Nome de Jogador 1: ")
+NOMES.append(nome_jog1)
+nome_jog2 = input("Nome de Jogador 2: ")
+NOMES.append(nome_jog2)
 TAM = tamanho_tabuleiro()
 e = controi_tabuleiro(TAM)
 imprime_matriz(e, TAM)
 
 # Laço principal
 while True:
-    print("Vez de jogador 1!")
+    print(colored("Vez de {}!", "blue").format(NOMES[0]))
     coluna1, linha1 = chamando_coluna_linha(TAM, e)
     movimentando_tab(linha1 - 1, coluna1, e, JOG1, PECA_BRANCA, PECA_PRETA)
     contar_liberdades(e)
@@ -72,7 +87,7 @@ while True:
     imprime_matriz(e, TAM)
     lipamdo_liberdades()
 
-    print("Vez de jogador 2!")
+    print(colored("Vez de {}!", "green").format(NOMES[1]))
     coluna2, linha2 = chamando_coluna_linha(TAM, e)
     movimentando_tab(linha2 - 1, coluna2, e, JOG2, PECA_BRANCA, PECA_PRETA)
     contar_liberdades(e)
