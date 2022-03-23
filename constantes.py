@@ -3,7 +3,8 @@ PECA_BRANCA = " ●"
 VAZIO = " ."
 JOG1 = 1
 JOG2 = 2
-letras_minusculas = ["a", "b", "c",  "d",  "e",  "f",  "g",  "h",  "i",  "j",  "k",  "l",  "m",  "n",  "o",  "p",  "q", "r", "s"]
+letras_minusculas = ["a", "b", "c",  "d",  "e",  "f",  "g",  "h",  "i",  "j",  "k",  "l",
+                     "m",  "n",  "o",  "p",  "q", "r", "s"]
 PONTOS_JOG1 = 0
 PONTOS_JOG2 = 0
 NOMES = []
@@ -58,5 +59,3 @@ tab19 = """
 17 |  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  | 
 18 |  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  | 
 19 |  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  | """
-
-

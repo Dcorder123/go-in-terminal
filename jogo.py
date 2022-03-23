@@ -1,105 +1,28 @@
 import constantes
 from constantes import *
 
-# contador
-liberdades_pretas = []
-liberdades_brancas = []
-blocop = []
-blocob = []
+# Lista de coordenadas de grupos
 grupos_P = []
 grupos_B = []
 
 
-# contar liberdades e salvar coordenadas das peças em grupo
-def contar_liberdades(tab):
-    """
-
-    :param tab: Lista da matriz que é usada para analisar e atualizar sobre as liberdades
-    :return: retorna a lista atualizada representativamente das liberdades das peças junto com suas cooordenadas
-    """
-    for linha in range(len(tab)):
-        for coluna in range(len(tab) + 1):
-
-            if linha != 0:
-                cima = tab[linha - 1][coluna]
-            else:
-                cima = "xxxxxxxxx"
-            if linha != len(tab) - 1:
-                baixo = tab[linha + 1][coluna]
-            else:
-                baixo = "xxxxxxxx"
-            esquerda = tab[linha][coluna - 1]
-            direita = tab[linha][coluna + 1]
-            quadrado = (linha, coluna)
-
-            if tab[linha][coluna] == PECA_PRETA or tab[linha][coluna] == PECA_BRANCA:
-
-                if tab[linha][coluna] == PECA_PRETA:
-                    if quadrado not in blocop:
-                        blocop.append(quadrado)
-
-                    if cima in [VAZIO, " x", " Y"]:
-                        tab[linha - 1][coluna] = " x"
-                        if cima not in liberdades_pretas:
-                            liberdades_pretas.append(coordenadas(linha, coluna, "cima"))
-                    if linha != len(tab) - 1:
-                        if baixo in [VAZIO, " x", " Y"]:
-                            tab[linha + 1][coluna] = " x"
-                            if baixo not in liberdades_pretas:
-                                liberdades_pretas.append(coordenadas(linha, coluna, "baixo"))
-
-                    if esquerda in [VAZIO, " x", " Y"]:
-                        tab[linha][coluna - 1] = " x"
-                        if esquerda not in liberdades_pretas:
-                            liberdades_pretas.append(coordenadas(linha, coluna, "esquerda"))
-
-                    if direita in [VAZIO, " x", " Y"]:
-                        tab[linha][coluna + 1] = " x"
-                        if direita not in liberdades_pretas:
-                            liberdades_pretas.append(coordenadas(linha, coluna, "direita"))
-
-                else:
-                    if quadrado not in blocob:
-                        blocob.append(quadrado)
-
-                    if cima in [VAZIO, " x", " Y"]:
-                        tab[linha - 1][coluna] = " Y"
-                        if cima not in liberdades_pretas:
-                            liberdades_brancas.append(coordenadas(linha, coluna, "cima"))
-                    if linha != len(tab) - 1:
-                        if baixo in [VAZIO, " x", " Y"]:
-                            tab[linha + 1][coluna] = " Y"
-                            if baixo not in liberdades_pretas:
-                                liberdades_brancas.append(coordenadas(linha, coluna, "baixo"))
-
-                    if esquerda in [VAZIO, " x", " Y"]:
-                        tab[linha][coluna - 1] = " Y"
-                        if esquerda not in liberdades_pretas:
-                            liberdades_brancas.append(coordenadas(linha, coluna, "esquerda"))
-
-                    if direita in [VAZIO, " x", " Y"]:
-                        tab[linha][coluna + 1] = " Y"
-                        if direita not in liberdades_pretas:
-                            liberdades_brancas.append(coordenadas(linha, coluna, "direita"))
-
-
-def controi_tabuleiro(TAM):
+def controi_tabuleiro(tamanho):
     """
     construir o tabuleiro de Go para iniciar
-    :param TAM: Tamanho do tabuleiro de Go que foi solicitado
+    :param tamanho: Tamanho do tabuleiro de Go que foi solicitado
     :return: Matriz do tabeiro feita
     """
 
     tab = []
-    for linhas in range(TAM):
+    for linhas in range(tamanho):
         coluna = []
         tab.append(coluna)
         if linhas >= 9:
             coluna.append(" {} |".format(linhas + 1))
         else:
             coluna.append("{}  |".format(linhas + 1))
-        for colunas in range(TAM):
-            if colunas == TAM - 1:
+        for colunas in range(tamanho):
+            if colunas == tamanho - 1:
                 coluna.append(VAZIO)
                 coluna.append(" |")
             else:
@@ -108,25 +31,28 @@ def controi_tabuleiro(TAM):
     return tab
 
 
-def imprime_matriz(m, tam):
+def imprime_matriz(m, tamanho):
     """
+    função de imprimir o tabubeiro
     Imprime a matriz do tabuleiro
     :param m: A matriz do tabuleiro a ser impresso
+    :param tamanho: tamanha do tabuleiro
     """
-    if tam == 9:
+    if tamanho == 9:
         print("      A  B  C  D  E  F  G  H  I")
-    elif tam == 13:
+    elif tamanho == 13:
         print("      A  B  C  D  E  F  G  H  I  J  K  L  M ")
-    elif tam == 19:
+    elif tamanho == 19:
         print("      A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S ")
 
     for linha in range(len(m)):
         for coluna in range(len(m[linha])):
-            if coluna == tam - 1:
+            if coluna == tamanho - 1:
                 print(m[linha][coluna], end="")
             else:
                 print(m[linha][coluna], end=" ")
         print()
+
 
 def movimentando_tab(linha, coluna, tab, JOG, BOLA_BRANCA, BOLA_PRETA):
     """
@@ -212,7 +138,6 @@ def verificando_se_he_grupo(tab, linha, coluna, tam):
             grupos_P.append([])
             grupos_P[-1].append((linha, coluna))
 
-        ########
         cima_peca = coordenadas(linha, coluna, "cima")  # Posição da jogada
         baixo_peca = coordenadas(linha, coluna, "baixo")
         esquerda_peca = coordenadas(linha, coluna, "esquerda")
@@ -284,17 +209,6 @@ def verificando_se_he_grupo(tab, linha, coluna, tam):
                     index -= 1
 
             index += 1  # Atualiza o valor do index
-
-        #######
-
-
-def lipamdo_liberdades():
-    """
-    limpa lista para atualizar de maneira correta
-    :return:listas limpas
-    """
-    liberdades_pretas.clear()
-    liberdades_brancas.clear()
 
 
 def analisa_liberdade_grupo(tab, lista_grupos, jogador):

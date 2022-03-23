@@ -37,7 +37,7 @@ def chamando_coluna_linha(tam, tab):
 
     if coluna not in letras_minusculas:
         print(colored("Fora do parametro", "red"))
-        imprime_matriz(e, tam)
+        imprime_matriz(tabuleiro, tam)
         return chamando_coluna_linha(tam, tab)
 
     pego_linha = input("Qual linha de 1 a {}? ".format(tam))
@@ -45,7 +45,7 @@ def chamando_coluna_linha(tam, tab):
     if pego_linha not in numeros:
         print(colored("Tem que ser numeros positivos entre 1 e {}".format(tam), "red"))
         print(colored("Ou ser Inteiro!", "red"))
-        imprime_matriz(e, tam)
+        imprime_matriz(tabuleiro, tam)
         return chamando_coluna_linha(tam, tab)
     linha = int(pego_linha)
     inter = interpretando_c(coluna)
@@ -53,12 +53,12 @@ def chamando_coluna_linha(tam, tab):
     if inter > tam or linha > tam or inter < 0 or linha < 0:
         print(colored("Posição fora do tabuleiro", "red"))
         print(colored("Escolha outra posição!!", "red"))
-        imprime_matriz(e, tam)
+        imprime_matriz(tabuleiro, tam)
         return chamando_coluna_linha(tam, tab)
     if tab[linha - 1][inter] == PECA_PRETA or tab[linha - 1][inter] == PECA_BRANCA:
         print(colored("Já tem uma peça nessa posição!", "red"))
         print(colored("Por favor escolher outra posição", "red"))
-        imprime_matriz(e, tam)
+        imprime_matriz(tabuleiro, tam)
         return chamando_coluna_linha(tam, tab)
 
     else:
@@ -72,33 +72,24 @@ NOMES.append(nome_jog1)
 nome_jog2 = input("Nome de Jogador 2: ")
 NOMES.append(nome_jog2)
 TAM = tamanho_tabuleiro()
-e = controi_tabuleiro(TAM)
-imprime_matriz(e, TAM)
+tabuleiro = controi_tabuleiro(TAM)
+imprime_matriz(tabuleiro, TAM)
 
 # Laço principal
 while True:
-    print(colored("Vez de {}!", "blue").format(NOMES[0]))
-    coluna1, linha1 = chamando_coluna_linha(TAM, e)
-    movimentando_tab(linha1 - 1, coluna1, e, JOG1, PECA_BRANCA, PECA_PRETA)
-    contar_liberdades(e)
-    verificando_se_he_grupo(e, linha1 - 1, coluna1, TAM)
-    analisa_liberdade_grupo(e, grupos_B, PECA_PRETA)
+    print(colored("Vez de {}! {}", "blue").format(NOMES[0], "(Cor Preta)"))
+    coluna1, linha1 = chamando_coluna_linha(TAM, tabuleiro)
+    movimentando_tab(linha1 - 1, coluna1, tabuleiro, JOG1, PECA_BRANCA, PECA_PRETA)
+    verificando_se_he_grupo(tabuleiro, linha1 - 1, coluna1, TAM)
+    analisa_liberdade_grupo(tabuleiro, grupos_B, PECA_PRETA)
     print("Pontos do Jogador 1: {} \nPontos do Jogador 2: {}".format(constantes.PONTOS_JOG1, constantes.PONTOS_JOG2))
-    imprime_matriz(e, TAM)
-    lipamdo_liberdades()
+    imprime_matriz(tabuleiro, TAM)
 
-    print(colored("Vez de {}!", "green").format(NOMES[1]))
-    coluna2, linha2 = chamando_coluna_linha(TAM, e)
-    movimentando_tab(linha2 - 1, coluna2, e, JOG2, PECA_BRANCA, PECA_PRETA)
-    contar_liberdades(e)
-    verificando_se_he_grupo(e, linha2 - 1, coluna2, TAM)
-    analisa_liberdade_grupo(e, grupos_P, PECA_BRANCA)
-    print("Pontos do Jogador 1: {}\n Pontos do Jogador 2: {}".format(constantes.PONTOS_JOG1, constantes.PONTOS_JOG2))
-    imprime_matriz(e, TAM)
-    # print(blocop)
-    # print(blocob)
-    # print(liberdades_pretas)
-    # print(liberdades_brancas)
-    # print(grupos_P)
-    # print(grupos_B)
-    lipamdo_liberdades()
+    print(colored("Vez de {}! {}", "green").format(NOMES[1], "(Cor Branca)"))
+    coluna2, linha2 = chamando_coluna_linha(TAM, tabuleiro)
+    movimentando_tab(linha2 - 1, coluna2, tabuleiro, JOG2, PECA_BRANCA, PECA_PRETA)
+    verificando_se_he_grupo(tabuleiro, linha2 - 1, coluna2, TAM)
+    analisa_liberdade_grupo(tabuleiro, grupos_P, PECA_BRANCA)
+    print("Pontos do Jogador 1: {}\nPontos do Jogador 2: {}".format(constantes.PONTOS_JOG1, constantes.PONTOS_JOG2))
+    imprime_matriz(tabuleiro, TAM)
+
