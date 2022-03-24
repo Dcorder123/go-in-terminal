@@ -67,10 +67,10 @@ def movimentando_tab(linha, coluna, tab, JOG, BOLA_BRANCA, BOLA_PRETA):
     :return: O tabuleiro autualiza como a peça no local
     """
 
-    if JOG == 1:
+    if JOG == 0:
         tab[linha][coluna] = BOLA_PRETA
 
-    elif JOG == 2:
+    elif JOG == 1:
         tab[linha][coluna] = BOLA_BRANCA
 
 
@@ -304,3 +304,14 @@ def quem_ganhou():
         print("{} Ganhou!!".format(NOMES[0]))
     if constantes.PONTOS_JOG1 < constantes.PONTOS_JOG2:
         print("{} Ganhou!!".format(NOMES[1]))
+    if constantes.PONTOS_JOG1 == constantes.PONTOS_JOG2:
+        print("EMPATE!!")
+
+
+def troca_turno(turno):
+    if (turno%2) == 0:
+        constantes.TURNO += 1
+        return 1
+    else:
+        constantes.TURNO += 1
+        return 0

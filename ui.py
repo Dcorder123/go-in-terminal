@@ -78,23 +78,22 @@ imprime_matriz(tabuleiro, TAM)
 
 # Laço principal
 while True:
-    print(colored("Vez de {}! {}", "blue").format(NOMES[0], "(Cor Preta)"))
-    coluna1, linha1 = chamando_coluna_linha(TAM, tabuleiro)
-    movimentando_tab(linha1 - 1, coluna1, tabuleiro, JOG1, PECA_BRANCA, PECA_PRETA)
-    verificando_se_he_grupo(tabuleiro, linha1 - 1, coluna1, TAM)
-    analisa_liberdade_grupo(tabuleiro, grupos_B, PECA_PRETA)
-    print("Pontos do Jogador 1: {} \nPontos do Jogador 2: {}".format(constantes.PONTOS_JOG1, constantes.PONTOS_JOG2))
-    imprime_matriz(tabuleiro, TAM)
-
-    print(colored("Vez de {}! {}", "green").format(NOMES[1], "(Cor Branca)"))
-    coluna2, linha2 = chamando_coluna_linha(TAM, tabuleiro)
-    movimentando_tab(linha2 - 1, coluna2, tabuleiro, JOG2, PECA_BRANCA, PECA_PRETA)
-    verificando_se_he_grupo(tabuleiro, linha2 - 1, coluna2, TAM)
-    analisa_liberdade_grupo(tabuleiro, grupos_P, PECA_BRANCA)
-    print("Pontos do Jogador 1: {}\nPontos do Jogador 2: {}".format(constantes.PONTOS_JOG1, constantes.PONTOS_JOG2))
+    turnos = troca_turno(constantes.TURNO)
+    if turnos == 0:
+        print(colored("Vez de {}! {}", "blue").format(NOMES[turnos], CORES[turnos]))
+    else:
+        print(colored("Vez de {}! {}", "green").format(NOMES[turnos], CORES[turnos]))
+    coluna, linha = chamando_coluna_linha(TAM, tabuleiro)
+    movimentando_tab(linha - 1, coluna, tabuleiro, turnos, PECA_BRANCA, PECA_PRETA)
+    verificando_se_he_grupo(tabuleiro, linha - 1, coluna, TAM)
+    if turnos == 1:
+        analisa_liberdade_grupo(tabuleiro, grupos_P, PECA_BRANCA)
+    else:
+        analisa_liberdade_grupo(tabuleiro, grupos_B, PECA_PRETA)
+    print("Pontos do {}: {} \nPontos do {}: {}".format(nome_jog1, constantes.PONTOS_JOG1,
+                                                       nome_jog2, constantes.PONTOS_JOG2))
     imprime_matriz(tabuleiro, TAM)
     fim = condiz_fim_jogo(tabuleiro, TAM)
-
     if fim == "s":
         quem_ganhou()
         break
