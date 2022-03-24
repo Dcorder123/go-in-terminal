@@ -1,5 +1,6 @@
 import constantes
 from constantes import *
+from termcolor import colored
 
 # Lista de coordenadas de grupos
 grupos_P = []
@@ -278,6 +279,12 @@ def captura(tab, grupo, jogador):
 
 
 def condiz_fim_jogo(tab, tamanho):
+    """
+    verifica a condição de fim de jogo
+    :param tab:Tabuleiro de go
+    :param tamanho: tamanho da matriz do tabuleiro
+    :return: [s] para parar o jogo e contar quem gangou [n] para continuar
+    """
     meta = int(tamanho*tamanho*0.60)
     contador = 0
     for linha in range(len(tab)):
@@ -285,5 +292,15 @@ def condiz_fim_jogo(tab, tamanho):
             if tab[linha][coluna] in [PECA_PRETA, PECA_BRANCA]:
                 contador += 1
     if contador >= meta:
-        pergunta = input("Vocês gostariam de Acabar o jogo se sim[s] se não[n]?").lower()
+        pergunta = input(colored("Vocês gostariam de Acabar o jogo se sim[s] se não[n]?", "yellow")).lower()
+        if pergunta not in ["s", "n"]:
+            print(colored("fora do parametro a resposta tem que ser (s) ou (n)", "red"))
+            condiz_fim_jogo(tab, tamanho)
         return pergunta
+
+
+def quem_ganhou():
+    if constantes.PONTOS_JOG1 > constantes.PONTOS_JOG2:
+        print("{} Ganhou!!".format(NOMES[0]))
+    if constantes.PONTOS_JOG1 < constantes.PONTOS_JOG2:
+        print("{} Ganhou!!".format(NOMES[1]))

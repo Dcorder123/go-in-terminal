@@ -94,3 +94,7 @@ while True:
     print("Pontos do Jogador 1: {}\nPontos do Jogador 2: {}".format(constantes.PONTOS_JOG1, constantes.PONTOS_JOG2))
     imprime_matriz(tabuleiro, TAM)
     fim = condiz_fim_jogo(tabuleiro, TAM)
+
+    if fim == "s":
+        quem_ganhou()
+        break
