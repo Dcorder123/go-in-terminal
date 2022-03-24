@@ -285,21 +285,29 @@ def condiz_fim_jogo(tab, tamanho):
     :param tamanho: tamanho da matriz do tabuleiro
     :return: [s] para parar o jogo e contar quem gangou [n] para continuar
     """
-    meta = int(tamanho*tamanho*0.60)
+    meta = int(tamanho*tamanho*0.58)
     contador = 0
     for linha in range(len(tab)):
         for coluna in range(len(tab)):
             if tab[linha][coluna] in [PECA_PRETA, PECA_BRANCA]:
                 contador += 1
     if contador >= meta:
-        pergunta = input(colored("Vocês gostariam de Acabar o jogo se sim[s] se não[n]?", "yellow")).lower()
-        if pergunta not in ["s", "n"]:
-            print(colored("fora do parametro a resposta tem que ser (s) ou (n)", "red"))
-            condiz_fim_jogo(tab, tamanho)
-        return pergunta
+        if contador >= int(tamanho*tamanho*0.75):
+            print(colored("Devido ao tabuleiro estar muito preenchido o jogo irá acabar!!", "yellow"))
+            return "s"
+        else:
+            pergunta = input(colored("Vocês gostariam de Acabar o jogo se sim[s] se não[n]?", "yellow")).lower()
+            if pergunta not in ["s", "n"]:
+                print(colored("fora do parametro a resposta tem que ser (s) ou (n)", "red"))
+                condiz_fim_jogo(tab, tamanho)
+            return pergunta
 
 
 def quem_ganhou():
+    """
+    Função que calcula quem ganhou o jogo
+    :return: quem ganhou
+    """
     if constantes.PONTOS_JOG1 > constantes.PONTOS_JOG2:
         print("{} Ganhou!!".format(NOMES[0]))
     if constantes.PONTOS_JOG1 < constantes.PONTOS_JOG2:
@@ -309,6 +317,11 @@ def quem_ganhou():
 
 
 def troca_turno(turno):
+    """
+    Troca os turnos dos jogadores
+    :param turno: ha variavel turno que auxilia na troca de turnos
+    :return: 0 para turno de preta e 1 para turno de branca
+    """
     if (turno%2) == 0:
         constantes.TURNO += 1
         return 1
