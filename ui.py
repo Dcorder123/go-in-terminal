@@ -66,8 +66,44 @@ def chamando_coluna_linha(tam, tab):
     else:
         return inter, linha
 
+def menssagem_inicial():
+    """
+    função que pergunta se o jogador que saber das regras do jogo
+    :return: se sim a menssagem com as regras do Go modificado
+    """
+    saber = input(colored("Gotaria de saber as regras desse jogo de GO se sim(s)? ", "magenta")).lower()
+
+    if saber == "s":
+        print("""
+Esse é um jogo de Go com a proposta de jogo diferente do tandicional.
+Onde a pontuação vem das peças capturadas.A captura funciona com as peças 
+bloaqueando as liberdades dos grupo inimigo assim a capturandoas 
+                         
+                              .  x  .   
+                              x  ◯  x       
+                              .  x  .         
+                        
+                        Liberdades de uma peça 
+                        
+                            .  ●  ●  .  
+                            ●  ◯  ◯  ●  
+                            .  ●  ●  .   
+                        
+                        Captura de um Grupo
+Assim copturando esse grupo de peças adicionando dois pontos para o jogador branco.
+Vence quem capturou mais peças.
+                          
+                            .  ●  ●  .  
+                            ●  .  .  ●  
+                            .  ●  ●  .
+                             
+Quem começa é sempre o Preto e para fim de jogo depois de um determinado numeros de jogadas 
+o jogo irá perguntar se os jogadores querem parar de jogar e assim contabilizar quem ganhou.
+""")
+
 
 # Inicia o jogo
+menssagem_inicial()
 nome_jog1 = input("Nome de Jogador 1: ")
 NOMES.append(nome_jog1)
 nome_jog2 = input("Nome de Jogador 2: ")
