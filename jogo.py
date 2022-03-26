@@ -64,7 +64,7 @@ def movimentando_tab(linha, coluna, tab, JOG, BOLA_BRANCA, BOLA_PRETA):
     :param JOG: Jogador
     :param BOLA_BRANCA:Peça Branca para identificar
     :param BOLA_PRETA: Peça Branca para identificar
-    :return: O tabuleiro autualiza como a peça no local
+    :return: O tabuleiro atualiza como a peça no local
     """
 
     if JOG == 0:
@@ -109,8 +109,8 @@ def verificando_se_he_grupo(tab, linha, coluna, tam):
     """
     verifica a cada movimento se formou um grupo verificando as direçãos das peças
     :param tab: Matriz da tabuleiro
-    :param linha: linha da movimentação atual do tabeliro
-    :param coluna: Coluna da movimentação atual do tabeliro
+    :param linha: linha da movimentação atual do tabeleiro
+    :param coluna: Coluna da movimentação atual do tabeleiro
     :param tam: Tamanho da matriz do tabuleiro
     :return: As listas de grupos atualizadas com coordenadas de grupos
     """
@@ -215,7 +215,7 @@ def verificando_se_he_grupo(tab, linha, coluna, tam):
 def analisa_liberdade_grupo(tab, lista_grupos, jogador):
     """
     Verificas grupos se tem peças com liberdades livres se não houver chama
-    função de captura e repove grupo da lista de grupo
+    função de captura e remove grupo da lista de grupo
     :param tab:Matriz do tabuleira para fazer verificação
     :param lista_grupos:Lista atual de grupos sendo analisada as liberdades
     :param jogador:Qual jogador vai pontuar se houver captura do grupo
@@ -239,7 +239,7 @@ def peca_livre(tab, peca):
     se faltar alguma true é por que tem alguma liberdade
     :param tab:matriz para poder efetuar verificação
     :param peca:coordenada da matriz da peça sendo analisada no momento
-    :return: retorna falso ou Verdaeiro se tem uma peça em cima , baixo , esquerdo, direita
+    :return: retorna falso ou Verdaeiro se tem uma peça em cima , baixo , esquerda, direita
     """
     if peca[0] == 0:
         vizinho_cima = False
@@ -263,7 +263,7 @@ def peca_livre(tab, peca):
 
 def captura(tab, grupo, jogador):
     """
-    função que substitui coordanadas dos grupo em Vazio e da um acrecimo de quantidade de peças no contador
+    função que substitui coordanadas dos grupo em Vazio e da um acréscimo de quantidade de peças no contador
     :param tab:Matriz do tabuleiro
     :param grupo:Grupo de peças capturadas
     :param jogador:Jogador a ganhar os pontos da captura
@@ -285,14 +285,14 @@ def condiz_fim_jogo(tab, tamanho):
     :param tamanho: tamanho da matriz do tabuleiro
     :return: [s] para parar o jogo e contar quem gangou [n] para continuar
     """
-    meta = int(tamanho*tamanho*0.58)
+    meta = int(tamanho*tamanho*0.50)
     contador = 0
     for linha in range(len(tab)):
         for coluna in range(len(tab)):
             if tab[linha][coluna] in [PECA_PRETA, PECA_BRANCA]:
                 contador += 1
     if contador >= meta:
-        if contador >= int(tamanho*tamanho*0.75):
+        if contador >= int(tamanho*tamanho*0.65):
             print(colored("Devido ao tabuleiro estar muito preenchido o jogo irá acabar!!", "yellow"))
             return "s"
         else:
