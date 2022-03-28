@@ -9,7 +9,7 @@ grupos_B = []
 
 def controi_tabuleiro(tamanho):
     """
-    construir o tabuleiro de Go para iniciar
+    Construir o tabuleiro de Go para iniciar
     :param tamanho: Tamanho do tabuleiro de Go que foi solicitado
     :return: Matriz do tabeiro feita
     """
@@ -34,9 +34,8 @@ def controi_tabuleiro(tamanho):
 
 def imprime_matriz(m, tamanho):
     """
-    função de imprimir o tabubeiro
-    Imprime a matriz do tabuleiro
-    :param m: A matriz do tabuleiro a ser impresso
+    Função de imprimir o tabubeiro
+    :param m: A matriz do tabuleiro a ser impressa
     :param tamanho: tamanha do tabuleiro
     """
     if tamanho == 9:
@@ -57,13 +56,13 @@ def imprime_matriz(m, tamanho):
 
 def movimentando_tab(linha, coluna, tab, JOG, BOLA_BRANCA, BOLA_PRETA):
     """
-    movimentação de Go na linha e na coluna que foi selecionado as peças
+    Movimentação de Go na linha e na coluna que foi selecionada as peças
     :param linha:linha da matriz
     :param coluna: coluna da matriz
     :param tab: matriz
     :param JOG: Jogador
     :param BOLA_BRANCA:Peça Branca para identificar
-    :param BOLA_PRETA: Peça Branca para identificar
+    :param BOLA_PRETA: Peça Preta para identificar
     :return: O tabuleiro atualiza como a peça no local
     """
 
@@ -76,7 +75,7 @@ def movimentando_tab(linha, coluna, tab, JOG, BOLA_BRANCA, BOLA_PRETA):
 
 def interpretando_c(c):
     """
-    interpretando as entradas de coluna que vão de A a S e substuindo por número interiro
+    Interpretando as entradas de coluna que vão de A a S e substuindo por número interiro
     :param c: Coluna representada por Letras
     :return: retorna o número da coluna em inteiros
     """
@@ -89,7 +88,7 @@ def interpretando_c(c):
 
 def coordenadas(l, c, direcao):
     """
-    função de pegar a direção e retornar as coordenadas da direção de verificação
+    Função de pegar a direção e retornar as coordenadas da direção de verificação
     :param l: linha da matriz do tabuleiro
     :param c: coluna da matriz do tabuleiro
     :param direcao: Direção de verificação
@@ -107,7 +106,7 @@ def coordenadas(l, c, direcao):
 
 def verificando_se_he_grupo(tab, linha, coluna, tam):
     """
-    verifica a cada movimento se formou um grupo verificando as direçãos das peças
+    Verifica a cada movimento se formou um grupo verificando as direçãos das peças
     :param tab: Matriz da tabuleiro
     :param linha: linha da movimentação atual do tabeleiro
     :param coluna: Coluna da movimentação atual do tabeleiro
@@ -214,8 +213,8 @@ def verificando_se_he_grupo(tab, linha, coluna, tam):
 
 def analisa_liberdade_grupo(tab, lista_grupos, jogador):
     """
-    Verificas grupos se tem peças com liberdades livres se não houver chama
-    função de captura e remove grupo da lista de grupo
+    Verifica grupos se tem peças com liberdades livres, se não houver chama
+    função de captura e remove grupo da lista de grupo.
     :param tab:Matriz do tabuleira para fazer verificação
     :param lista_grupos:Lista atual de grupos sendo analisada as liberdades
     :param jogador:Qual jogador vai pontuar se houver captura do grupo
@@ -235,8 +234,8 @@ def analisa_liberdade_grupo(tab, lista_grupos, jogador):
 
 def peca_livre(tab, peca):
     """
-    função que faz verificações das liberdades se tudo voltar false é por que não tem nenhuma liberdade
-    se faltar alguma true é por que tem alguma liberdade
+    Função que faz verificações das liberdades, se tudo voltar false é por que não tem nenhuma liberdade,
+    se faltar alguma true é por que tem alguma liberdade.
     :param tab:matriz para poder efetuar verificação
     :param peca:coordenada da matriz da peça sendo analisada no momento
     :return: retorna falso ou Verdaeiro se tem uma peça em cima , baixo , esquerda, direita
@@ -263,11 +262,11 @@ def peca_livre(tab, peca):
 
 def captura(tab, grupo, jogador):
     """
-    função que substitui coordanadas dos grupo em Vazio e da um acréscimo de quantidade de peças no contador
+    Função que substitui coordanadas dos grupo em Vazio e da um acréscimo de quantidade de peças no contador
     :param tab:Matriz do tabuleiro
     :param grupo:Grupo de peças capturadas
-    :param jogador:Jogador a ganhar os pontos da captura
-    :return:retorna a lista da matriz autalizada sem as peças e contador atualizado
+    :param jogador:Jogador há ganhar os pontos da captura
+    :return:retorna a lista da matriz atualizada, sem as peças capturadas e contador atualizado.
     """
     grupo = list(set(grupo))
     for peca in grupo:
@@ -280,10 +279,10 @@ def captura(tab, grupo, jogador):
 
 def condiz_fim_jogo(tab, tamanho):
     """
-    verifica a condição de fim de jogo
+    Verifica a condição de fim de jogo
     :param tab:Tabuleiro de go
     :param tamanho: tamanho da matriz do tabuleiro
-    :return: [s] para parar o jogo e contar quem gangou [n] para continuar
+    :return: [s] para parar o jogo e contar quem ganhou e [n] para continuar.
     """
     meta = int(tamanho*tamanho*0.50)
     contador = 0
@@ -319,7 +318,7 @@ def quem_ganhou():
 def troca_turno(turno):
     """
     Troca os turnos dos jogadores
-    :param turno: ha variavel turno que auxilia na troca de turnos
+    :param turno: a variavel turno que auxilia na troca de turnos
     :return: 0 para turno de preta e 1 para turno de branca
     """
     if (turno%2) == 0:

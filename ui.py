@@ -5,7 +5,7 @@ from termcolor import colored
 
 def tamanho_tabuleiro():
     """
-    Função que chama o tamanho do tabuleiro e se for tamanho fora dos parametros chama de novo
+    Função que chama o tamanho do tabuleiro e se o tamanho for fora dos parametros chama de novo
     a função
     :return: tamanho do tabuleiro
     """
@@ -23,11 +23,11 @@ def tamanho_tabuleiro():
 
 def chamando_coluna_linha(tam, tab):
     """
-    Nessa função iremos pedir a coluna e a linha iremos verificar se podemos fazer a jogada
+    Nessa função iremos pedir a coluna e a linha, iremos verificar se podemos fazer a jogada
     e se está dentro dos parametros
     :param tam:Tamanho da Matriz do tabuleiro
-    :param tab: Matriz do tabeleiro
-    :return: linha e coluna corretas para a movimentação e também menssagens de erros quando errada
+    :param tab: Matriz do tabuleiro
+    :return: linha e coluna corretas para a movimentação e também menssagens de erros quando errado
     """
 
     letras = ["A", "B", "C",  "D",  "E ",  "F",  "G",  "H",  "I",
@@ -38,14 +38,14 @@ def chamando_coluna_linha(tam, tab):
     coluna = input("Qual coluna de A a {}? ".format(letras[tam - 1])).lower()
 
     if coluna not in letras_minusculas:
-        print(colored("Fora do parametro", "red"))
+        print(colored("Fora do parâmetro", "red"))
         imprime_matriz(tabuleiro, tam)
         return chamando_coluna_linha(tam, tab)
 
     pego_linha = input("Qual linha de 1 a {}? ".format(tam))
 
     if pego_linha not in numeros:
-        print(colored("Tem que ser numeros positivos entre 1 e {}".format(tam), "red"))
+        print(colored("Tem que ser números positivos entre 1 e {}".format(tam), "red"))
         print(colored("Ou ser Inteiro!", "red"))
         imprime_matriz(tabuleiro, tam)
         return chamando_coluna_linha(tam, tab)
@@ -68,8 +68,8 @@ def chamando_coluna_linha(tam, tab):
 
 def menssagem_inicial():
     """
-    função que pergunta se o jogador que saber das regras do jogo
-    :return: se sim a menssagem com as regras do Go modificado
+    Função que pergunta se o jogador que saber das regras do jogo
+    :return: se sim, a menssagem com as regras do Go modificado.
     """
     saber = input(colored("Gotaria de saber as regras desse jogo de GO se sim(s)? ", "magenta")).lower()
 
@@ -97,7 +97,7 @@ Vence quem capturou mais peças.
                             ●  .  .  ●  
                             .  ●  ●  .
                              
-Quem começa é sempre o Preto e para fim de jogo depois de um determinado numeros de jogadas 
+Quem começa é sempre o Preto e para fim de jogo depois de um determinado numeros de jogadas, 
 o jogo irá perguntar se os jogadores querem parar de jogar e assim contabilizar quem ganhou.
 """)
 
