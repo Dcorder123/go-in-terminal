@@ -15,7 +15,7 @@
 </p>
 <br>
 
-<img  alt="Wallpaper"  src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Go_%2813%C3%9713%29_--_2021_--_6741.jpg" width="50%">
+<img  alt="Wallpaper"  src="https://user-images.githubusercontent.com/101361658/241572183-1f917cf4-7c37-42d2-8647-d1498d613435.jpg" width="50%">
 
 <br> 
 
