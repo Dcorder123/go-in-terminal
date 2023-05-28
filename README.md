@@ -1,3 +1,4 @@
+<div align="center">
 # Go in termenial  
   
 <h4> Repositorio do projeto de algoritmos go no terminal  Utilizando a linguagem python3, para o primeiro período de Engenharia da Computação.
@@ -14,7 +15,7 @@
 </p>
 <br>
 
-<img  alt="Wallpaper"  src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.gettyimages.pt%2Ffotos%2Fjogo-do-go&psig=AOvVaw2M9hBTq1Eozr6OvbEE3R0_&ust=1685374788742000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCKDZwL2smP8CFQAAAAAdAAAAABAE?width=815&height=458" width="50%">
+<img  alt="Wallpaper"  src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Go_%2813%C3%9713%29_--_2021_--_6741.jpg" width="50%">
 
 <br> 
 
