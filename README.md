@@ -1,5 +1,5 @@
 <div align="center">
-# Go in termenial  
+# Go in terminal
   
 <h4> Repositorio do projeto de algoritmos go no terminal  Utilizando a linguagem python3, para o primeiro período de Engenharia da Computação.
 </h4>    
@@ -7,10 +7,10 @@
   
 <p>
 <!-- Image Shields -->
-<img  alt="Language Top"  src="https://img.shields.io/github/languages/top/Dcorder123/go-in-termenial">
-<img  alt="Languages Count"  src="https://img.shields.io/github/languages/count/Dcorder123/go-in-termenial">
-<img  alt="Last Commit"  src="https://img.shields.io/github/last-commit/Dcorder123/go-in-termenial">
-<img  alt="Repo Size"  src="https://img.shields.io/github/repo-size/Dcorder123/go-in-termenial">
+<img  alt="Language Top"  src="https://img.shields.io/github/languages/top/Dcorder123/go-in-terminal">
+<img  alt="Languages Count"  src="https://img.shields.io/github/languages/count/Dcorder123/go-in-terminal">
+<img  alt="Last Commit"  src="https://img.shields.io/github/last-commit/Dcorder123/go-in-terminal">
+<img  alt="Repo Size"  src="https://img.shields.io/github/repo-size/Dcorder123/go-in-terminal">
 </a>
 </p>
 <br>
@@ -34,7 +34,7 @@
 $ git clone
 
 # Vá para o repositório
-$ cd go-in-termenial
+$ cd go-in-terminal
 
 # Instale as dependências
 $ pip install -r requirements.txt
